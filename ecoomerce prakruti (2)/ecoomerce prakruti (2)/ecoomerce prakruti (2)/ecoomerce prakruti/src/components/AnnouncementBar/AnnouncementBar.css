@@ -1,0 +1,29 @@
+.announcement-bar {
+  background-color: var(--color-primary);
+  color: var(--color-announce-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.announcement-text {
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.leaf-icon {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}

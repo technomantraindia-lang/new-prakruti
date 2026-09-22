@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Circular border -->
+  <circle cx="60" cy="60" r="56" fill="#f5f2ea" stroke="#2d5a27" stroke-width="2.5"/>
+
+  <!-- Trunk -->
+  <rect x="57" y="62" width="6" height="24" rx="3" fill="#5c3a1e"/>
+
+  <!-- Roots -->
+  <path d="M60 86 Q52 90 46 88" stroke="#5c3a1e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M60 86 Q68 90 74 88" stroke="#5c3a1e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M60 88 Q54 96 50 94" stroke="#5c3a1e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M60 88 Q66 96 70 94" stroke="#5c3a1e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Tree canopy - layered circles -->
+  <ellipse cx="60" cy="52" rx="26" ry="22" fill="#2d5a27"/>
+  <ellipse cx="46" cy="58" rx="14" ry="12" fill="#3a7032"/>
+  <ellipse cx="74" cy="58" rx="14" ry="12" fill="#3a7032"/>
+  <ellipse cx="60" cy="42" rx="18" ry="16" fill="#4a7c43"/>
+
+  <!-- Small leaf accents -->
+  <ellipse cx="44" cy="44" rx="7" ry="5" fill="#5a8f52" transform="rotate(-30 44 44)"/>
+  <ellipse cx="76" cy="44" rx="7" ry="5" fill="#5a8f52" transform="rotate(30 76 44)"/>
+
+  <!-- Highlight dots on canopy -->
+  <circle cx="55" cy="44" r="2.5" fill="#7ab868" opacity="0.7"/>
+  <circle cx="65" cy="40" r="2" fill="#7ab868" opacity="0.7"/>
+  <circle cx="50" cy="54" r="2" fill="#7ab868" opacity="0.6"/>
+</svg>

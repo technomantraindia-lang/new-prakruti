@@ -1,0 +1,142 @@
+# Technomantra Local Code Knowledge Graph (V4.8.14)
+
+> Structural local index. Read current source before editing. Secrets are intentionally excluded.
+
+- Indexed source files: 138
+- Structural edges: 107
+- Matched end-to-end flows: 0
+- Updated: 2026-09-22T11:18:59.096Z
+
+## Routes
+- ROUTE GET /login -> LoginController@showLoginForm @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /login -> LoginController@login @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /dashboard -> DashboardController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /search -> \App\Http\Controllers\Admin\GlobalSearchController@search @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /logout -> LoginController@logout @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /products-bulk/create -> ProductController@bulkCreate @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /products-bulk/store -> ProductController@bulkStore @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /products-import -> ProductController@importForm @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /products-import -> ProductController@importStore @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE PATCH /products/{product}/toggle-status -> ProductController@toggleStatus @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE PATCH /products/{product}/toggle-featured -> ProductController@toggleFeatured @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /products/{product}/variations -> \App\Http\Controllers\Admin\ProductVariationController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /products/{product}/variations -> \App\Http\Controllers\Admin\ProductVariationController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE PUT /products/{product}/variations/{variation} -> \App\Http\Controllers\Admin\ProductVariationController@update @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE DELETE /products/{product}/variations/{variation} -> \App\Http\Controllers\Admin\ProductVariationController@destroy @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /orders -> OrderController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /orders/bulk-action -> OrderController@bulkAction @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /orders/{order}/invoice -> OrderController@invoice @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /api/products -> ProductApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/products/{product}/reviews -> ReviewApiController@productReviews @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/products/{product}/reviews -> ReviewApiController@storeProductReview @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/products/{slug} -> ProductApiController@show @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/products/{product}/variations -> ProductApiController@variations @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/categories -> CategoryApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/categories/{slug} -> CategoryApiController@show @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/brands -> CatalogMetaApiController@brands @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/attributes -> CatalogMetaApiController@attributes @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/shipping-methods -> ShippingTaxApiController@shippingMethods @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/taxes -> ShippingTaxApiController@taxes @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/cart -> CartApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/cart/items -> CartApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE PUT /api/cart/items/{id} -> CartApiController@update @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE DELETE /api/cart/items/{id} -> CartApiController@destroy @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE DELETE /api/cart -> CartApiController@clear @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/inquiries -> InquiryApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/consultation-requests -> ConsultationRequestApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+
+## Dependency edges
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.css, ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/api/reviews.js
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.css
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.css, ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/api/reviews.js
+- IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.css
+
+## Database references
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/vite.config.js -> vite, laravel
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx -> react, generational, Saurashtra, Rajasthan, Madhya, Tamil, commercial, a, India, Source, Sacred, THE, the
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.jsx -> react, generational
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.jsx -> react, framer
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.jsx -> react, framer, our, us
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.jsx -> react, framer, trusted
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.jsx -> react, groundwater, a, harmful, real, cared, curd
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx -> react, your, pack, this
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.jsx -> react, framer, a, do, verified, traditional, Rajasthan
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.jsx -> react, fresh, golden, Sacred, certified
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.jsx -> react, Our
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.jsx -> react, your, marketing, time, unlawful
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx -> react
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx -> react, your, organic
+- DB ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx -> react, trusted, Trusted
+
+## Schema shapes
+- SCHEMA ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/database/migrations/2026_09_22_000001_create_frontend_reviews_tables.php: table product_reviews
+
+## Symbols
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Admin/ReviewController.php: ReviewController, index, updateProductReview, updateTestimonial
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Api/V1/ReviewApiController.php: ReviewApiController, testimonials, storeTestimonial, productReviews, storeProductReview, resolveProduct, serializeTestimonial, serializeProductReview
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Frontend/PageController.php: PageController, show
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/Page.php: Page
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/ProductReview.php: ProductReview, product, user, scopeActive
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/database/migrations/2026_09_22_000001_create_frontend_reviews_tables.php: extends, up, down
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/layouts/app.blade.php: setSidebarTheme
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/_form.blade.php: packageRowTemplate, reindexPackageRows, renderGalleryPreview
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/settings/index.blade.php: bindRemoveButtons
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/tests/Feature/WebhookRouteTest.php: WebhookRouteTest, test_single_woocommerce_webhook_route_exists
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx: AboutPage, toggleFaq
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.jsx: AboutSection
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.jsx: AccountPage, loadAccount
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.jsx: AnnouncementBar
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.jsx: AuthModal
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.jsx: AuthPage, handleSubmit
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.jsx: Benefits
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx: BestSellers
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx: CartPage, handleQuantityChange, handleRemoveItem, handleApplyCoupon, handleCarouselScroll, handleSubscribe
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.jsx: formatPrice, getOriginalPrice, CategoryPage, handleResetFilters
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.jsx: ContactPage, handleInputChange, handleFormSubmit, handleSubscribe
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.jsx: parseFiniteNumber, feetAndInchesToMeters, centimetresToMeters, calculateBmiValue, roundBmiForDisplay, formatHeightCm, convertFeetInchesToCm, convertCmToFeetInches, classifyAdultBmi, EducationPage
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx: ageGroup, memberFactor, nutritionFor, findProduct, buildRecommendations, hydrateRecommendations, summarizeMembers, formatPrice, FamilyPackPage, updateMember
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.jsx: FaqSection, toggleFaq
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.jsx: FarmGallery, handleOpenItem, handlePrevSlide, handleNextSlide
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx: Footer
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.jsx: HeroBanner
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.jsx: InstagramFeed
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.jsx: LegalPage
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx: LoadingScreen
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx: Navbar, handleSearchSubmit
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx: PrakrutiPromise
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx: formatPrice, getPackMultiplier, renderMultilineText, ProductDetailPage, handleAddToCart, handleReviewSubmit
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.jsx: PromoBanner
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.jsx: ShopByCategory
+- SYMBOL ecoomer

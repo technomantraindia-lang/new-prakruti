@@ -1,0 +1,212 @@
+.promo-banner-section {
+  padding: 40px 0 52px;
+  background: #faf8f3;
+  width: 100%;
+}
+
+.promo-banner-section .container {
+  max-width: 1440px;
+  width: min(94%, 1440px);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.promo-banner-inner-custom {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f4f6ee var(--promo-background) right center / cover no-repeat;
+  box-shadow: 0 10px 30px rgba(21, 49, 32, 0.05);
+  display: flex;
+  align-items: center;
+}
+
+.promo-banner-inner-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 250, 242, 0.98) 0%,
+    rgba(247, 250, 242, 0.94) 38%,
+    rgba(247, 250, 242, 0.72) 52%,
+    rgba(247, 250, 242, 0.1) 75%,
+    rgba(247, 250, 242, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.promo-left-content {
+  position: relative;
+  z-index: 1;
+  width: min(52%, 620px);
+  padding: 60px 0 60px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.promo-kicker-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: #556832;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+}
+
+.promo-kicker-row i {
+  display: block;
+  width: 90px;
+  height: 1px;
+  background: rgba(85, 104, 50, 0.45);
+}
+
+.promo-headline {
+  margin: 28px 0 20px;
+  color: #123826;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 4.4vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.promo-headline-line {
+  display: block;
+  color: #123826;
+}
+
+.promo-headline-italic {
+  display: block;
+  color: #637731;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.promo-desc-text {
+  max-width: 480px;
+  margin: 0;
+  color: #334036;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.promo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 15px 30px;
+  border-radius: 8px;
+  background: #114c2e;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(17, 76, 46, 0.18);
+  transition: all 0.25s ease;
+}
+
+.promo-cta-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2;
+  transition: transform 0.2s ease;
+}
+
+.promo-cta-btn:hover {
+  background: #0d3d25;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(17, 76, 46, 0.26);
+}
+
+.promo-cta-btn:hover svg {
+  transform: translateX(3px);
+}
+
+.promo-helper-text {
+  max-width: 420px;
+  margin: 14px 0 0;
+  color: #55665b;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .promo-banner-inner-custom {
+    min-height: 520px;
+    background-position: 75% center;
+  }
+  .promo-left-content {
+    width: min(60%, 540px);
+    padding: 48px 0 48px 44px;
+  }
+  .promo-headline {
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 22px 0 16px;
+  }
+  .promo-desc-text {
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .promo-banner-inner-custom {
+    min-height: auto;
+    background-position: center top;
+    background-size: 100% auto;
+    align-items: flex-end;
+  }
+  .promo-banner-inner-custom::before {
+    background: linear-gradient(
+      180deg,
+      rgba(247, 250, 242, 0.1) 0%,
+      rgba(247, 250, 242, 0.85) 280px,
+      rgba(247, 250, 242, 1) 100%
+    );
+  }
+  .promo-left-content {
+    width: 100%;
+    padding: 300px 24px 36px;
+  }
+  .promo-headline {
+    font-size: 2.3rem;
+  }
+  .promo-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .promo-banner-section {
+    padding: 24px 0 36px;
+  }
+  .promo-left-content {
+    padding: 240px 18px 28px;
+  }
+  .promo-headline {
+    font-size: 1.95rem;
+  }
+  .promo-desc-text {
+    font-size: 0.9rem;
+  }
+  .promo-cta-btn {
+    padding: 13px 22px;
+    font-size: 0.95rem;
+  }
+}

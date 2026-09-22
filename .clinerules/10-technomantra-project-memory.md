@@ -1,0 +1,168 @@
+# Technomantra Project Memory
+
+> This is a persistent locator map, not a claim that file contents are current. Read each target only once per task and rely on normal invalidation after edits.
+
+- Workspace: ecoomerce prakruti (3)
+- Technology: Not yet detected
+- Active file at refresh: None
+- Local code graph: 138 files · 107 edges · 0 matched flows
+- Refreshed: 2026-09-22T11:18:59.115Z
+
+
+
+## Recently edited files
+- None recorded yet
+
+## High-value project files
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/composer.json
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/package.json
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/README.md
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/vite.config.js
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/index.html
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/package.json
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Admin/ReviewController.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Api/V1/ReviewApiController.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Frontend/PageController.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/Page.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/ProductReview.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/app.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/auth.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/cache.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/cors.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/database.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/filesystems.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/logging.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/mail.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/queue.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/services.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/config/session.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/database/migrations/2026_09_22_000001_create_frontend_reviews_tables.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/auth/login.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/brands/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/brands/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/brands/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/categories/_form.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/categories/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/categories/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/categories/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/consultations/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/consultations/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/customers/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/customers/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/dashboard/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inquiries/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inquiries/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inventory/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/layouts/app.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/orders/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/orders/invoice.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/orders/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/partials/alert.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/payments/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/payments/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/_form.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/bulk-create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/import.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/variations/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/reviews/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/search/results.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/settings/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/shipping/_form.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/shipping/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/shipping/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/shipping/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/system/backups.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/taxes/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/taxes/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/taxes/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/account.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/auth/login.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/auth/register.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/cart/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/categories/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/home.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/layouts/app.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/pages/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/products/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/products/show.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/welcome.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+
+## Additional indexed files
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/console.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/web.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/app/route-list.json
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/2834152ec3ca01167e467f3c1b8bb9a8.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/5f1204aa0187b266ba015009585ec66d.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/7e800d611d510780918de51ef238bff1.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/97b38ce633e462ec795680d9a2c651e5.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/b652abdcbd0f7bad04e2332969de6cbc.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/tests/Feature/WebhookRouteTest.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/api/reviews.js
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutSection/AboutSection.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AccountPage/AccountPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AnnouncementBar/AnnouncementBar.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.css
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.jsx
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/vite.config.mjs
+- .clinerules/05-technomantra-execution-mode.md
+- .clinerules/06-technomantra-developer-mode.md
+- .clinerules/08-technomantra-task-watchdog.md
+- .clinerules/09-technomantra-m

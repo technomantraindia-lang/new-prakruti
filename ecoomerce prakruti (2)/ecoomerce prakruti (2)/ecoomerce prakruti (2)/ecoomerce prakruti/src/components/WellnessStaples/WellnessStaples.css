@@ -1,0 +1,179 @@
+.wellness-staples {
+  padding: 72px 0 90px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fffaf2 100%);
+  overflow: hidden;
+}
+
+.staples-marquee {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: max-content;
+  min-width: 100%;
+  padding: 10px 0 18px;
+  animation: wellnessTrain 26s linear infinite;
+  will-change: transform;
+}
+
+.wellness-staples .container {
+  overflow: hidden;
+}
+
+.staples-marquee:hover {
+  animation-play-state: paused;
+}
+
+.staple-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  flex: 0 0 148px;
+  position: relative;
+  outline: none;
+}
+
+.staple-circle {
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(217, 160, 91, 0.6);
+  box-shadow: 0 12px 28px rgba(45, 90, 39, 0.12);
+  transition: var(--transition-smooth);
+  background-color: var(--color-bg-light);
+  position: relative;
+}
+
+.staple-circle::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  pointer-events: none;
+}
+
+.staple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.staple-name {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: 15px;
+  text-align: center;
+  transition: var(--transition-smooth);
+}
+
+.staple-item:hover .staple-circle {
+  transform: scale(1.08);
+  border-color: var(--color-primary-light);
+  box-shadow: 0 20px 42px rgba(45, 90, 39, 0.2);
+}
+
+.staple-item:hover .staple-img {
+  transform: scale(1.14) rotate(2deg);
+}
+
+.staple-item:hover .staple-name {
+  color: var(--color-primary);
+  transform: translateY(2px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .staples-marquee {
+    gap: 16px;
+    animation-duration: 22s;
+  }
+  .staple-item {
+    flex-basis: 116px;
+  }
+  .staple-circle {
+    width: 98px;
+    height: 98px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wellness-staples {
+    padding: 60px 0 76px;
+  }
+  .staples-marquee {
+    gap: 14px;
+    animation-duration: 20s;
+  }
+  .staple-item {
+    flex-basis: 104px;
+  }
+  .staple-circle {
+    width: 88px;
+    height: 88px;
+    border-width: 3px;
+  }
+  .staple-name {
+    font-size: 0.8rem;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wellness-staples {
+    padding: 50px 0 64px;
+  }
+  .staples-marquee {
+    gap: 12px;
+    animation-duration: 18s;
+  }
+  .staple-item {
+    flex-basis: 88px;
+  }
+  .staple-circle {
+    width: 74px;
+    height: 74px;
+    border-width: 3px;
+  }
+  .staple-name {
+    font-size: 0.72rem;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .wellness-staples {
+    padding: 44px 0 56px;
+  }
+  .staples-marquee {
+    gap: 10px;
+    animation-duration: 16s;
+  }
+  .staple-item {
+    flex-basis: 76px;
+  }
+  .staple-circle {
+    width: 64px;
+    height: 64px;
+    border-width: 2px;
+  }
+  .staple-name {
+    font-size: 0.66rem;
+    margin-top: 8px;
+  }
+}
+
+@keyframes wellnessTrain {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

@@ -1,0 +1,384 @@
+# Technomantra Project Memory
+
+> This is a persistent locator map, not a claim that file contents are current. Read each target only once per task and rely on normal invalidation after edits.
+
+- Workspace: ecommerce-backend-new
+- Technology: Vite, Tailwind CSS, Node.js/npm, Laravel/PHP
+- Active file at refresh: None
+- Local code graph: 177 files · 115 edges · 0 matched flows
+- Refreshed: 2026-08-25T07:53:03.600Z
+
+## Framework Intelligence (V4.7.8)
+- Profiles: laravel
+- Package manager: npm
+- Laravel requirement: ^13.8
+
+### Entry / bootstrap candidates
+- artisan
+- routes/web.php
+- routes/api.php
+- public/index.php
+
+### Pages / views
+- resources/views/admin/activity_logs/index.blade.php
+- resources/views/admin/attributes/create.blade.php
+- resources/views/admin/attributes/edit.blade.php
+- resources/views/admin/attributes/index.blade.php
+- resources/views/admin/auth/login.blade.php
+- resources/views/admin/banners/_form.blade.php
+- resources/views/admin/banners/create.blade.php
+- resources/views/admin/banners/edit.blade.php
+- resources/views/admin/banners/index.blade.php
+- resources/views/admin/brands/create.blade.php
+- resources/views/admin/brands/edit.blade.php
+- resources/views/admin/brands/index.blade.php
+- resources/views/admin/categories/_form.blade.php
+- resources/views/admin/categories/create.blade.php
+- resources/views/admin/categories/edit.blade.php
+- resources/views/admin/categories/index.blade.php
+
+### Laravel route / class / method symbols
+- app/Http/Controllers/Admin/ActivityLogController.php: class ActivityLogController, index()
+- app/Http/Controllers/Admin/AdminUserController.php: class AdminUserController, index(), create(), store(), edit(), update(), toggleStatus()
+- app/Http/Controllers/Admin/AttributeController.php: class AttributeController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/BackupController.php: class BackupController, index(), create(), download(), destroy()
+- app/Http/Controllers/Admin/BannerController.php: class BannerController, __construct(), index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/BrandController.php: class BrandController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/CategoryController.php: class CategoryController, __construct(), index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/CouponController.php: class CouponController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/CustomerController.php: class CustomerController, index(), show()
+- app/Http/Controllers/Admin/DashboardController.php: class DashboardController, index()
+- app/Http/Controllers/Admin/FailedJobController.php: class FailedJobController, index(), retry(), retryAll(), destroy()
+- app/Http/Controllers/Admin/GlobalSearchController.php: class GlobalSearchController, search()
+- app/Http/Controllers/Admin/InquiryController.php: class InquiryController, index(), show(), update()
+- app/Http/Controllers/Admin/InventoryController.php: class InventoryController, index(), update()
+- app/Http/Controllers/Admin/InvoiceController.php: class InvoiceController, index(), show()
+- app/Http/Controllers/Admin/LoginController.php: class LoginController, showLoginForm(), login(), logout()
+- app/Http/Controllers/Admin/NotificationController.php: class NotificationController, index(), markAsRead(), markAllAsRead(), destroy()
+- app/Http/Controllers/Admin/OrderController.php: class OrderController, index(), show(), update(), bulkAction()
+- app/Http/Controllers/Admin/PageController.php: class PageController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/PaymentController.php: class PaymentController, index(), show()
+- app/Http/Controllers/Admin/ProductController.php: class ProductController, __construct(), index(), create(), store(), show(), edit(), update(), destroy(), bulkCreate()
+- app/Http/Controllers/Admin/ReportController.php: class ReportController, __construct(), index(), profit(), gst(), export()
+- app/Http/Controllers/Admin/ReturnController.php: class ReturnController, index(), show(), updateStatus()
+- app/Http/Controllers/Admin/RtoController.php: class RtoController, index(), create(), store(), show(), updateStatus()
+- app/Http/Controllers/Admin/SettingController.php: class SettingController, __construct(), index(), update()
+- app/Http/Controllers/Admin/ShippingController.php: class ShippingController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/SystemHealthController.php: class SystemHealthController, index()
+- app/Http/Controllers/Admin/TaxController.php: class TaxController, index(), create(), store(), edit(), update(), destroy()
+- app/Http/Controllers/Admin/WooCommerceController.php: class WooCommerceController, index(), testConnection()
+- app/Http/Controllers/Admin/WooCommerceProductSyncController.php: class WooCommerceProductSyncController, index(), syncSingle(), bulkSync(), showError()
+- app/Http/Controllers/Admin/WooCommerceSyncConflictController.php: class WooCommerceSyncConflictController, index(), resolve()
+- app/Http/Controllers/Admin/WooCommerceSyncLogController.php: class WooCommerceSyncLogController, index(), show(), retry()
+- app/Http/Controllers/Api/ProductController.php: class ProductController, index(), store(), show(), update(), destroy()
+- app/Http/Controllers/Api/V1/AttributeApiController.php: class AttributeApiController, index()
+- app/Http/Controllers/Api/V1/BrandApiController.php: class BrandApiController, index()
+- app/Http/Controllers/Api/V1/CategoryApiController.php: class CategoryApiController, index(), show()
+
+### Laravel controller/service/model chains
+- app/Http/Controllers/Admin/ActivityLogController.php -> app/Models/ActivityLog.php, app/Models/User.php
+- app/Http/Controllers/Admin/AdminUserController.php -> app/Models/Role.php, app/Models/User.php, app/Services/ActivityLogService.php
+- app/Http/Controllers/Admin/AttributeController.php -> app/Models/AttributeValue.php, app/Models/ProductAttribute.php
+- app/Http/Controllers/Admin/BackupController.php -> app/Services/ActivityLogService.php
+- app/Http/Controllers/Admin/BannerController.php -> app/Models/Banner.php, app/Services/ImageUploadService.php
+- app/Http/Controllers/Admin/BrandController.php -> app/Models/Brand.php, app/Services/ActivityLogService.php
+- app/Http/Controllers/Admin/CategoryController.php -> app/Models/Category.php, app/Services/ImageUploadService.php
+- app/Http/Controllers/Admin/CouponController.php -> app/Models/Coupon.php
+- app/Http/Controllers/Admin/CustomerController.php -> app/Models/Role.php, app/Models/User.php
+- app/Http/Controllers/Admin/DashboardController.php -> app/Models/Category.php, app/Models/Coupon.php, app/Models/Order.php, app/Models/OrderItem.php, app/Models/Product.php, app/Models/User.php
+- app/Http/Controllers/Admin/GlobalSearchController.php -> app/Models/Invoice.php, app/Models/Order.php, app/Models/Product.php, app/Models/User.php
+- app/Http/Controllers/Admin/InquiryController.php -> app/Models/Inquiry.php
+- app/Http/Controllers/Admin/InventoryController.php -> app/Models/InventoryLog.php, app/Models/Product.php
+- app/Http/Controllers/Admin/InvoiceController.php -> app/Models/Invoice.php
+- app/Http/Controllers/Admin/OrderController.php -> app/Models/Order.php, app/Models/OrderStatusHistory.php
+- app/Http/Controllers/Admin/PageController.php -> app/Models/Page.php
+- app/Http/Controllers/Admin/PaymentController.php -> app/Models/Payment.php
+- app/Http/Controllers/Admin/ProductController.php -> app/Models/Brand.php, app/Models/Category.php, app/Models/Product.php, app/Models/ProductImage.php, app/Services/ImageUploadService.php
+- app/Http/Controllers/Admin/ReportController.php -> app/Services/ExportService.php, app/Services/ReportService.php
+- app/Http/Controllers/Admin/ReturnController.php -> app/Models/OrderReturn.php, app/Services/ReturnService.php
+- app/Http/Controllers/Admin/RtoController.php -> app/Models/Order.php, app/Models/RtoShipment.php, app/Services/RtoService.php
+- app/Http/Controllers/Admin/SettingController.php -> app/Models/Setting.php, app/Services/ImageUploadService.php
+- app/Http/Controllers/Admin/ShippingController.php -> app/Models/ShippingMethod.php
+- app/Http/Controllers/Admin/SystemHealthController.php -> app/Models/WebhookLog.php, app/Models/WooCommerceSyncLog.php, app/Services/WooCommerce/WooCommerceClient.php
+- app/Http/Controllers/Admin/TaxController.php -> app/Models/Tax.php
+- app/Http/Controllers/Admin/WooCommerceController.php -> app/Services/ActivityLogService.php, app/Services/WooCommerce/WooCommerceClient.php
+- app/Http/Controllers/Admin/WooCommerceProductSyncController.php -> app/Models/Product.php, app/Models/WooCommerceSyncLog.php, app/Services/WooCommerce/ProductSyncService.php
+- app/Http/Controllers/Admin/WooCommerceSyncConflictController.php -> app/Models/Product.php, app/Models/WooCommerceSyncConflict.php, app/Services/ActivityLogService.php, app/Services/WooCommerce/InventorySyncService.php, app/Services/WooCommerce/ProductSyncService.php
+- app/Http/Controllers/Admin/WooCommerceSyncLogController.php -> app/Models/Product.php, app/Models/WooCommerceSyncLog.php, app/Services/WooCommerce/OrderSyncService.php, app/Services/WooCommerce/ProductSyncService.php
+- app/Http/Controllers/Api/V1/AttributeApiController.php -> app/Http/Resources/AttributeResource.php, app/Models/ProductAttribute.php
+
+### Styles
+- resources/css/app.css
+
+### Controllers
+- app/Http/Controllers/Admin/ActivityLogController.php
+- app/Http/Controllers/Admin/AdminUserController.php
+- app/Http/Controllers/Admin/AttributeController.php
+- app/Http/Controllers/Admin/BackupController.php
+- app/Http/Controllers/Admin/BannerController.php
+- app/Http/Controllers/Admin/BrandController.php
+- app/Http/Controllers/Admin/CategoryController.php
+- app/Http/Controllers/Admin/CouponController.php
+- app/Http/Controllers/Admin/CustomerController.php
+- app/Http/Controllers/Admin/DashboardController.php
+- app/Http/Controllers/Admin/FailedJobController.php
+- app/Http/Controllers/Admin/GlobalSearchController.php
+- app/Http/Controllers/Admin/InquiryController.php
+- app/Http/Controllers/Admin/InventoryController.php
+- app/Http/Controllers/Admin/InvoiceController.php
+- app/Http/Controllers/Admin/LoginController.php
+
+### Services / actions
+- app/Services/ActivityLogService.php
+- app/Services/ExportService.php
+- app/Services/ImageUploadService.php
+- app/Services/InventoryService.php
+- app/Services/RefundService.php
+- app/Services/ReportService.php
+- app/Services/ReturnService.php
+- app/Services/RtoService.php
+- app/Services/WooCommerce/CustomerSyncService.php
+- app/Services/WooCommerce/InventorySyncService.php
+- app/Services/WooCommerce/OrderStatusMapper.php
+- app/Services/WooCommerce/OrderSyncService.php
+- app/Services/WooCommerce/ProductSyncService.php
+- app/Services/WooCommerce/WooCommerceClient.php
+- app/Services/WooCommerce/WooCommerceWebhookService.php
+
+### Models / entities
+- app/Models/ActivityLog.php
+- app/Models/Address.php
+- app/Models/AttributeValue.php
+- app/Models/Banner.php
+- app/Models/Brand.php
+- app/Models/Cart.php
+- app/Models/CartItem.php
+- app/Models/Category.php
+- app/Models/Coupon.php
+- app/Models/CouponUsage.php
+- app/Models/Inquiry.php
+- app/Models/InventoryLog.php
+- app/Models/InventoryTransaction.php
+- app/Models/Invoice.php
+- app/Models/Order.php
+- app/Models/OrderItem.php
+
+### Middleware
+- app/Http/Middleware/AdminMiddleware.php
+- app/Http/Middleware/AuthenticateApiToken.php
+- app/Http/Middleware/CheckPermission.php
+
+### Laravel routes
+- routes/web.php
+- routes/api.php
+- routes/console.php
+
+### Laravel API/Filament resources
+- app/Http/Resources/AttributeResource.php
+- app/Http/Resources/BrandResource.php
+- app/Http/Resources/CategoryResource.php
+- app/Http/Resources/CustomerResource.php
+- app/Http/Resources/OrderResource.php
+- app/Http/Resources/ProductResource.php
+- app/Http/Resources/VariationResource.php
+
+### Available validation scripts
+- build: vite build
+- dev: vite
+
+### Composer scripts
+- setup
+- dev
+- test
+- post-autoload-dump
+- post-update-cmd
+- post-root-package-install
+- post-create-project-cmd
+- pre-package-uninstall
+
+## Recently edited files
+- None recorded yet
+
+## High-value project files
+- composer.json
+- package.json
+- README.md
+- vite.config.js
+- app/Http/Controllers/Admin/ActivityLogController.php
+- app/Http/Controllers/Admin/AdminUserController.php
+- app/Http/Controllers/Admin/AttributeController.php
+- app/Http/Controllers/Admin/BackupController.php
+- app/Http/Controllers/Admin/BannerController.php
+- app/Http/Controllers/Admin/BrandController.php
+- app/Http/Controllers/Admin/CategoryController.php
+- app/Http/Controllers/Admin/CouponController.php
+- app/Http/Controllers/Admin/CustomerController.php
+- app/Http/Controllers/Admin/DashboardController.php
+- app/Http/Controllers/Admin/FailedJobController.php
+- app/Http/Controllers/Admin/GlobalSearchController.php
+- app/Http/Controllers/Admin/InquiryController.php
+- app/Http/Controllers/Admin/InventoryController.php
+- app/Http/Controllers/Admin/InvoiceController.php
+- app/Http/Controllers/Admin/LoginController.php
+- app/Http/Controllers/Admin/NotificationController.php
+- app/Http/Controllers/Admin/OrderController.php
+- app/Http/Controllers/Admin/PageController.php
+- app/Http/Controllers/Admin/PaymentController.php
+- app/Http/Controllers/Admin/ProductController.php
+- app/Http/Controllers/Admin/ReportController.php
+- app/Http/Controllers/Admin/ReturnController.php
+- app/Http/Controllers/Admin/RtoController.php
+- app/Http/Controllers/Admin/SettingController.php
+- app/Http/Controllers/Admin/ShippingController.php
+- app/Http/Controllers/Admin/SystemHealthController.php
+- app/Http/Controllers/Admin/TaxController.php
+- app/Http/Controllers/Admin/WooCommerceController.php
+- app/Http/Controllers/Admin/WooCommerceProductSyncController.php
+- app/Http/Controllers/Admin/WooCommerceSyncConflictController.php
+- app/Http/Controllers/Admin/WooCommerceSyncLogController.php
+- app/Http/Controllers/Api/ProductController.php
+- app/Http/Controllers/Api/V1/AttributeApiController.php
+- app/Http/Controllers/Api/V1/BrandApiController.php
+- app/Http/Controllers/Api/V1/CategoryApiController.php
+- app/Http/Controllers/Api/V1/CustomerAuthApiController.php
+- app/Http/Controllers/Api/V1/CustomerOrderApiController.php
+- app/Http/Controllers/Api/V1/ProductApiController.php
+- app/Http/Controllers/Api/WooCommerceWebhookController.php
+- app/Http/Controllers/Controller.php
+- app/Http/Controllers/CustomerAuthController.php
+- app/Http/Controllers/Frontend/CartController.php
+- app/Http/Controllers/Frontend/CategoryController.php
+- app/Http/Controllers/Frontend/HomeController.php
+- app/Http/Controllers/Frontend/LoginController.php
+- app/Http/Controllers/Frontend/PageController.php
+- app/Http/Controllers/Frontend/ProductController.php
+- app/Http/Controllers/Frontend/RegisterController.php
+- app/Http/Middleware/AdminMiddleware.php
+- app/Http/Middleware/AuthenticateApiToken.php
+- app/Http/Middleware/CheckPermission.php
+- app/Http/Resources/AttributeResource.php
+- app/Http/Resources/BrandResource.php
+- app/Http/Resources/CategoryResource.php
+- app/Http/Resources/CustomerResource.php
+- app/Http/Resources/OrderResource.php
+- app/Http/Resources/ProductResource.php
+- app/Http/Resources/VariationResource.php
+- app/Jobs/ImportWooCommerceOrder.php
+- app/Jobs/SyncProductInventoryToWooCommerce.php
+- app/Jobs/SyncProductToWooCommerce.php
+- app/Jobs/SyncVariationToWooCommerce.php
+- app/Jobs/SyncWooCommerceCustomer.php
+- app/Jobs/UpdateWooCommerceOrder.php
+- app/Models/ActivityLog.php
+- app/Models/Address.php
+- app/Models/AttributeValue.php
+- app/Models/Banner.php
+- app/Models/Brand.php
+- app/Models/Cart.php
+- app/Models/CartItem.php
+- app/Models/Category.php
+- app/Models/Coupon.php
+- app/Models/CouponUsage.php
+- app/Models/Inquiry.php
+
+## Additional indexed files
+- app/Models/InventoryLog.php
+- app/Models/InventoryTransaction.php
+- app/Models/Invoice.php
+- app/Models/Order.php
+- app/Models/OrderItem.php
+- app/Models/OrderReturn.php
+- app/Models/OrderStatusHistory.php
+- app/Models/Page.php
+- app/Models/Payment.php
+- app/Models/Permission.php
+- app/Models/PersonalAccessToken.php
+- app/Models/Product.php
+- app/Models/ProductAttribute.php
+- app/Models/ProductImage.php
+- app/Models/ProductVariation.php
+- app/Models/Refund.php
+- app/Models/ReturnItem.php
+- app/Models/Role.php
+- app/Models/RtoShipment.php
+- app/Models/Setting.php
+- app/Models/ShippingMethod.php
+- app/Models/Tax.php
+- app/Models/User.php
+- app/Models/VariationAttributeValue.php
+- app/Models/WebhookLog.php
+- app/Models/WooCommerceSyncConflict.php
+- app/Models/WooCommerceSyncLog.php
+- app/Notifications/SystemAlertNotification.php
+- app/Providers/AppServiceProvider.php
+- app/Services/ActivityLogService.php
+- app/Services/ExportService.php
+- app/Services/ImageUploadService.php
+- app/Services/InventoryService.php
+- app/Services/RefundService.php
+- app/Services/ReportService.php
+- app/Services/ReturnService.php
+- app/Services/RtoService.php
+- app/Services/WooCommerce/CustomerSyncService.php
+- app/Services/WooCommerce/InventorySyncService.php
+- app/Services/WooCommerce/OrderStatusMapper.php
+- app/Services/WooCommerce/OrderSyncService.php
+- app/Services/WooCommerce/ProductSyncService.php
+- app/Services/WooCommerce/WooCommerceClient.php
+- app/Services/WooCommerce/WooCommerceWebhookService.php
+- app/Traits/HasApiTokens.php
+- public/index.php
+- resources/css/app.css
+- resources/js/app.js
+- resources/views/admin/activity_logs/index.blade.php
+- resources/views/admin/attributes/create.blade.php
+- resources/views/admin/attributes/edit.blade.php
+- resources/views/admin/attributes/index.blade.php
+- resources/views/admin/auth/login.blade.php
+- resources/views/admin/banners/_form.blade.php
+- resources/views/admin/banners/create.blade.php
+- resources/views/admin/banners/edit.blade.php
+- resources/views/admin/banners/index.blade.php
+- resources/views/admin/brands/create.blade.php
+- resources/views/admin/brands/edit.blade.php
+- resources/views/admin/brands/index.blade.php
+- resources/views/admin/categories/_form.blade.php
+- resources/views/admin/categories/create.blade.php
+- resources/views/admin/categories/edit.blade.php
+- resources/views/admin/categories/index.blade.php
+- resources/views/admin/coupons/_form.blade.php
+- resources/views/admin/coupons/create.blade.php
+- resources/views/admin/coupons/edit.blade.php
+- resources/views/admin/coupons/index.blade.php
+- resources/views/admin/customers/index.blade.php
+- resources/views/admin/customers/show.blade.php
+- resources/views/admin/dashboard/index.blade.php
+- resources/views/admin/inquiries/index.blade.php
+- resources/views/admin/inquiries/show.blade.php
+- resources/views/admin/inventory/index.blade.php
+- resources/views/admin/invoices/index.blade.php
+- resources/views/admin/invoices/show.blade.php
+- resources/views/admin/layouts/app.blade.php
+- resources/views/admin/orders/index.blade.php
+- resources/views/admin/orders/show.blade.php
+- resources/views/admin/pages/_form.blade.php
+- resources/views/admin/pages/create.blade.php
+- resources/views/admin/pages/edit.blade.php
+- resources/views/admin/pages/index.blade.php
+- resources/views/admin/partials/alert.blade.php
+- resources/views/admin/payments/index.blade.php
+- resources/views/admin/payments/show.blade.php
+- resources/views/admin/products/_form.blade.php
+- resources/views/admin/products/bulk-create.blade.php
+- resources/views/admin/products/create.blade.php
+- resources/views/admin/products/edit.blade.php
+- resources/views/admin/products/import.blade.php
+- resources/views/admin/products/index.blade.php
+- resources/views/admin/products/show.blade.php
+- resources/views/admin/reports/index.blade.php
+- resources/views/admin/returns/index.blade.php
+- resources/views/admin/returns/show.blade.php
+- resources/views/admin/rto/create.blade.php
+- resources/views/admin/rto/index.blade.php
+- resources/views/admin/rto/show.blade.php
+- resources/views/admin/search/results.blade.php

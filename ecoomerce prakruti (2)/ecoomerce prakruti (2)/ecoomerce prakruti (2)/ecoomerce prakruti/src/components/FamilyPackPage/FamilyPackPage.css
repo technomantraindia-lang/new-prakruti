@@ -1,0 +1,1149 @@
+/* ==========================================================================
+   Family Pack Page - Modern Redesign
+   ========================================================================== */
+
+.family-pack-page {
+  min-height: 100vh;
+  background-color: var(--color-bg, #fbf9f4);
+  color: var(--color-text, #2d3748);
+  font-family: var(--font-body, 'Plus Jakarta Sans', system-ui, sans-serif);
+  padding-bottom: 90px;
+}
+
+.family-pack-page .container {
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 32px;
+  margin: 0 auto;
+}
+
+/* 1. Hero Section */
+.family-pack-hero {
+  padding: 56px 0 48px;
+  background: linear-gradient(180deg, rgba(23, 56, 38, 0.04) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(23, 56, 38, 0.06);
+}
+
+.family-pack-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.family-pack-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background-color: rgba(23, 56, 38, 0.08);
+  color: var(--color-primary-dark, #173826);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.family-pack-hero h1 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+  font-weight: 700;
+  color: var(--color-primary-dark, #173826);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.family-pack-hero h1 em {
+  font-style: italic;
+  color: var(--color-primary, #2d5a27);
+}
+
+.family-pack-hero p {
+  color: #55695a;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  max-width: 620px;
+  margin: 0 0 26px;
+}
+
+.family-pack-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.btn-primary-fp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #173826;
+  color: #ffffff;
+  border: 2px solid #173826;
+  border-radius: 30px;
+  padding: 13px 28px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 16px rgba(23, 56, 38, 0.2);
+}
+
+.btn-primary-fp:hover:not(:disabled) {
+  background-color: #27593c;
+  border-color: #27593c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(23, 56, 38, 0.3);
+}
+
+.btn-primary-fp:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-outline-fp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: transparent;
+  color: #173826;
+  border: 2px solid #173826;
+  border-radius: 30px;
+  padding: 13px 26px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-outline-fp:hover {
+  background-color: rgba(23, 56, 38, 0.08);
+  transform: translateY(-2px);
+}
+
+.family-pack-save-toast {
+  display: inline-block;
+  background-color: #dcfce7;
+  border: 1px solid #86efac;
+  color: #166534;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.family-pack-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 580px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid rgba(23, 56, 38, 0.1);
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.stat-card.highlight {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: linear-gradient(145deg, #ffffff 0%, #f4fbf5 100%);
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #173826;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stat-lbl {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #718778;
+  margin-top: 4px;
+}
+
+/* Hero Image Wrap */
+.family-pack-hero-image-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img-frame {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(23, 56, 38, 0.12);
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 40px rgba(23, 56, 38, 0.08);
+  width: 100%;
+  max-width: 480px;
+}
+
+.hero-img-frame img {
+  width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.hero-img-frame:hover img {
+  transform: scale(1.03);
+}
+
+.img-floating-tag {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(23, 56, 38, 0.1);
+  border-radius: 14px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.floating-icon {
+  font-size: 1.4rem;
+}
+
+.img-floating-tag strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #173826;
+}
+
+.img-floating-tag p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* 2. Common Step Container & Cards */
+.fp-section-container {
+  margin-top: 36px;
+}
+
+.fp-card {
+  background: #ffffff;
+  border: 1px solid rgba(23, 56, 38, 0.09);
+  border-radius: 24px;
+  padding: 36px 38px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+}
+
+.fp-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(23, 56, 38, 0.08);
+}
+
+.step-tag {
+  display: inline-block;
+  background-color: rgba(23, 56, 38, 0.08);
+  color: #173826;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.fp-card-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #173826;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.fp-card-header p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #617b66;
+  line-height: 1.5;
+}
+
+/* Member Quick Add Buttons */
+.member-quick-add {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-add-member {
+  background: #f7f5ed;
+  border: 1px solid rgba(23, 56, 38, 0.2);
+  color: #173826;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add-member:hover {
+  background: #173826;
+  color: #ffffff;
+  border-color: #173826;
+  transform: translateY(-1px);
+}
+
+/* Member Chips Row */
+.member-chips-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbf9f4;
+  border: 1px solid rgba(23, 56, 38, 0.1);
+  padding: 8px 16px;
+  border-radius: 12px;
+}
+
+.chip-icon {
+  font-size: 1.1rem;
+}
+
+.chip-count {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #173826;
+}
+
+.chip-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #617b66;
+}
+
+/* Member Grid List */
+.member-grid-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.member-card-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #faf8f3;
+  border: 1px solid rgba(23, 56, 38, 0.08);
+  border-radius: 16px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+.member-card-item:hover {
+  background: #ffffff;
+  border-color: rgba(23, 56, 38, 0.22);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.member-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(23, 56, 38, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.member-inputs-group {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.input-wrap label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #718778;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.name-wrap {
+  flex: 1;
+}
+
+.age-wrap {
+  width: 80px;
+}
+
+.input-wrap input {
+  height: 38px;
+  border: 1px solid rgba(23, 56, 38, 0.15);
+  border-radius: 8px;
+  padding: 0 10px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #173826;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-wrap input:focus {
+  border-color: #173826;
+  box-shadow: 0 0 0 2px rgba(23, 56, 38, 0.08);
+}
+
+.age-group-pill {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.age-group-pill.adult {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.age-group-pill.child {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.age-group-pill.senior {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.btn-remove-member {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-remove-member:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* 3. Step 2: Nutrition Cards Grid */
+.nutrition-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.nutrition-stat-card {
+  background: #faf8f3;
+  border: 1px solid rgba(23, 56, 38, 0.08);
+  border-radius: 18px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.nutrition-stat-card:hover {
+  background: #ffffff;
+  border-color: rgba(23, 56, 38, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.nutri-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.nutri-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #617b66;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.nutri-val {
+  font-family: var(--font-body);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #173826;
+  line-height: 1.15;
+  margin: 6px 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.nutri-val small {
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: #718778;
+}
+
+.nutri-sub {
+  font-size: 0.76rem;
+  color: #88998c;
+  margin-top: auto;
+}
+
+/* 4. Step 3: Basket Header & Items List */
+.basket-header {
+  align-items: center;
+}
+
+.basket-total-badge {
+  background: #173826;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 16px;
+  text-align: right;
+  box-shadow: 0 4px 16px rgba(23, 56, 38, 0.2);
+}
+
+.basket-total-badge span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #bbf7d0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.basket-total-badge strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: 2px;
+  letter-spacing: -0.01em;
+}
+
+.basket-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.basket-item-row {
+  display: grid;
+  grid-template-columns: 36px 64px minmax(0, 1.4fr) 110px 120px 120px 36px;
+  align-items: center;
+  gap: 18px;
+  background: #faf8f3;
+  border: 1px solid rgba(23, 56, 38, 0.08);
+  border-radius: 16px;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+}
+
+.basket-item-row:hover {
+  background: #ffffff;
+  border-color: rgba(23, 56, 38, 0.22);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.item-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #94a3b8;
+}
+
+.item-thumb-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  background: #f7f4ed;
+  border: 1px solid rgba(23, 56, 38, 0.08);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-details {
+  min-width: 0;
+}
+
+.item-category-tag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #617b66;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.item-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #173826;
+  margin: 2px 0 3px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-benefit {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #718778;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-unit-price,
+.item-subtotal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item-unit-price .price-label,
+.item-subtotal .price-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.item-unit-price .price-amount {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+.item-subtotal .subtotal-amount {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #173826;
+}
+
+.item-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid rgba(23, 56, 38, 0.18);
+  border-radius: 20px;
+  padding: 3px 6px;
+  width: 104px;
+}
+
+.item-qty-stepper button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #f1ede2;
+  color: #173826;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-qty-stepper button:hover {
+  background: #173826;
+  color: #ffffff;
+}
+
+.item-qty-stepper .qty-val {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #173826;
+  min-width: 24px;
+  text-align: center;
+}
+
+.btn-delete-item {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-delete-item:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Basket Action Footer */
+.basket-action-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(23, 56, 38, 0.08);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.item-count-badge {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #173826;
+  background: #f7f4ed;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12px;
+}
+
+/* 5. Step 4: Extras Section */
+.extras-header {
+  align-items: center;
+}
+
+.extras-search-wrap {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+}
+
+.search-svg-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718778;
+}
+
+.extras-search-wrap input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid rgba(23, 56, 38, 0.16);
+  border-radius: 22px;
+  padding: 0 16px 0 40px;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  outline: none;
+  background: #faf8f3;
+  transition: all 0.2s ease;
+}
+
+.extras-search-wrap input:focus {
+  border-color: #173826;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(23, 56, 38, 0.08);
+}
+
+.extras-products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.extra-item-card {
+  background: #faf8f3;
+  border: 1px solid rgba(23, 56, 38, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.extra-item-card:hover {
+  background: #ffffff;
+  border-color: rgba(23, 56, 38, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.extra-img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.1 / 1;
+  background: #f7f4ed;
+  overflow: hidden;
+}
+
+.extra-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.extra-item-card:hover .extra-img-box img {
+  transform: scale(1.05);
+}
+
+.extra-cat-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #166534;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.extra-info-box {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.extra-name {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #173826;
+  margin: 0 0 8px;
+  line-height: 1.3;
+  height: 2.6em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.extra-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 6px;
+}
+
+.extra-price {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #173826;
+}
+
+.btn-add-extra {
+  background: #173826;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add-extra:hover {
+  background: #27593c;
+  transform: scale(1.04);
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .extras-products-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .family-pack-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .family-pack-hero-image-wrap {
+    order: -1;
+  }
+
+  .hero-img-frame {
+    max-width: 400px;
+  }
+
+  .nutrition-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .member-grid-list {
+    grid-template-columns: 1fr;
+  }
+
+  .basket-item-row {
+    grid-template-columns: 32px 54px minmax(0, 1fr) 90px 100px 90px 30px;
+    gap: 12px;
+  }
+
+  .extras-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .family-pack-page .container {
+    padding: 0 16px;
+  }
+
+  .fp-card {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .fp-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .basket-item-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .item-num {
+    display: none;
+  }
+
+  .item-details {
+    grid-column: 2;
+  }
+
+  .item-unit-price {
+    display: none;
+  }
+
+  .item-qty-stepper {
+    grid-column: 1 / span 2;
+    justify-self: start;
+  }
+
+  .item-subtotal {
+    grid-column: 1 / span 2;
+    justify-self: end;
+    margin-top: -34px;
+  }
+
+  .btn-delete-item {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .basket-item-row {
+    position: relative;
+  }
+
+  .basket-action-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer-right {
+    flex-direction: column;
+  }
+
+  .footer-right button {
+    width: 100%;
+  }
+
+  .extras-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .family-pack-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nutrition-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-inputs-group {
+    flex-direction: column;
+  }
+
+  .age-wrap {
+    width: 100%;
+  }
+
+.extras-search-wrap {
+    width: 100%;
+  }
+}
+
+/* Clean line-icon replacements for inconsistent emoji glyphs */
+.chip-icon,
+.member-avatar,
+.nutri-icon {
+  color: #276241;
+}
+
+.chip-icon,
+.nutri-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.chip-icon::before,
+.member-avatar::before,
+.nutri-icon::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+}
+
+.chip:nth-child(1) .chip-icon::before,
+.member-avatar::before {
+  border-radius: 50% 50% 45% 45%;
+  box-shadow: 0 11px 0 -5px currentColor;
+}
+
+.chip:nth-child(2) .chip-icon::before {
+  border-radius: 50%;
+  box-shadow: -8px 6px 0 -6px currentColor, 8px 6px 0 -6px currentColor;
+}
+
+.chip:nth-child(3) .chip-icon::before {
+  border-radius: 50%;
+  border-style: dashed;
+  box-shadow: 0 11px 0 -5px currentColor;
+}
+
+.nutrition-stat-card .nutri-icon {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: rgba(39, 98, 65, 0.1);
+}
+
+.nutrition-stat-card .nutri-icon::before {
+  border: 0;
+}
+
+.nutrition-stat-card.calories .nutri-icon::before {
+  width: 14px;
+  height: 22px;
+  background: currentColor;
+  clip-path: polygon(56% 0, 12% 52%, 45% 52%, 33% 100%, 88% 39%, 55% 39%);
+}
+
+.nutrition-stat-card.protein .nutri-icon::before {
+  width: 24px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-left-width: 6px;
+  border-right-width: 6px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.nutrition-stat-card.fiber .nutri-icon::before {
+  width: 24px;
+  height: 22px;
+  background:
+    linear-gradient(currentColor 0 0) 2px 10px / 4px 12px no-repeat,
+    linear-gradient(currentColor 0 0) 10px 5px / 4px 17px no-repeat,
+    linear-gradient(currentColor 0 0) 18px 0 / 4px 22px no-repeat;
+}
+
+.nutrition-stat-card.fats .nutri-icon::before {
+  width: 17px;
+  height: 22px;
+  border: 2px solid currentColor;
+  border-radius: 70% 70% 70% 0;
+  transform: rotate(-45deg);
+  background: transparent;
+}

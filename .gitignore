@@ -1,0 +1,28 @@
+# Dependencies and generated frontend output
+**/node_modules/
+**/vendor/
+**/dist/
+**/build/
+
+# Local environment and secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Logs and local tooling
+**/*.log
+**/.phpunit.result.cache
+**/.phpunit.cache/
+**/.idea/
+**/.vscode/
+**/.cursor/
+
+# Laravel runtime files
+**/public/hot
+**/public/storage
+**/storage/logs/*
+**/storage/framework/cache/data/*
+**/storage/framework/sessions/*
+**/storage/framework/testing/*
+**/storage/framework/views/*
+**/bootstrap/cache/*.php
