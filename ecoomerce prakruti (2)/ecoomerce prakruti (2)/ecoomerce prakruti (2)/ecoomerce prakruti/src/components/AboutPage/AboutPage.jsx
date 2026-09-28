@@ -7,7 +7,7 @@ import seedsImg from '../../assets/images/seeds.png';
 import gheeImg from '../../assets/images/bestseller_gir_ghee.jpg';
 import packagingImg from '../../assets/images/packge.png';
 import spicesImg from '../../assets/images/spices.png';
-import aboutUsBanner from '../../assets/images/new aabout us iamge.png';
+import aboutUsBanner from '../../assets/images/packaging/about us aiamge .png';
 import sectionBg from '../../assets/images/SECTION .png';
 
 // Certification Badges

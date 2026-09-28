@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductReview;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ReviewController extends Controller
 {
     public function index(Request $request)
     {
+        $this->markMenuSeen('reviews');
+
         $type = $request->get('type', 'product');
 
         $productReviews = ProductReview::with('product')
@@ -48,5 +51,12 @@ class ReviewController extends Controller
         $testimonial->update($data);
 
         return redirect()->route('admin.reviews.index', ['type' => 'testimonial'])->with('success', 'Testimonial updated successfully.');
+    }
+
+    private function markMenuSeen(string $section): void
+    {
+        if (auth()->check()) {
+            Cache::forever('admin_menu_seen_' . $section . '_' . auth()->id(), now()->toDateTimeString());
+        }
     }
 }

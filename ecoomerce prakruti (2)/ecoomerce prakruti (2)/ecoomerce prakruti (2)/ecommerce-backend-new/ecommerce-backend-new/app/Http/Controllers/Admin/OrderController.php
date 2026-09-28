@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class OrderController extends Controller
 {
     public function index(Request $request)
     {
+        $this->markMenuSeen('orders');
+
         $query = Order::with(['user', 'items.product', 'payment'])->withCount('items')->latest();
 
         // 1. Order Number / Tracking / Search
@@ -108,6 +111,8 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $this->markMenuSeen('orders');
+
         $order->load([
             'user',
             'items.product.images',
@@ -149,21 +154,12 @@ class OrderController extends Controller
 
         $order->update($request->only(['pay_status', 'tracking_num', 'courier', 'admin_note']));
 
-        $authUser = auth()->user();
-        $isSuperAdminOverride = $authUser && $authUser->isSuperAdmin() && $request->filled('override_reason');
-        $overrideReason = $request->input('override_reason');
-
-        try {
-            $orderService->updateOrderStatus(
-                $order,
-                $data['status'],
-                $data['status_note'] ?? null,
-                $isSuperAdminOverride,
-                $overrideReason
-            );
-        } catch (\InvalidArgumentException $e) {
-            return back()->withInput()->with('error', $e->getMessage());
-        }
+        $this->applyAdminStatusUpdate(
+            $order,
+            $orderService,
+            $data['status'],
+            $data['status_note'] ?? null
+        );
 
         return redirect()->route('admin.orders.show', $order)->with('success', 'Order updated successfully.');
     }
@@ -237,5 +233,52 @@ class OrderController extends Controller
         }
 
         return redirect()->back()->with('success', $message);
+    }
+
+    private function applyAdminStatusUpdate(
+        Order $order,
+        \App\Services\OrderService $orderService,
+        string $targetStatus,
+        ?string $note = null
+    ): void {
+        if ($order->status === $targetStatus) {
+            return;
+        }
+
+        if ($orderService->canTransition($order->status, $targetStatus)) {
+            $orderService->updateOrderStatus($order, $targetStatus, $note);
+            return;
+        }
+
+        $steps = Order::statusSteps();
+        $currentIndex = array_search($order->status, $steps, true);
+        $targetIndex = array_search($targetStatus, $steps, true);
+
+        if ($currentIndex !== false && $targetIndex !== false && $targetIndex > $currentIndex) {
+            foreach (array_slice($steps, $currentIndex + 1, $targetIndex - $currentIndex) as $step) {
+                $orderService->updateOrderStatus(
+                    $order->fresh(),
+                    $step,
+                    $step === $targetStatus ? $note : 'Auto-updated by admin manage order flow'
+                );
+            }
+
+            return;
+        }
+
+        $orderService->updateOrderStatus(
+            $order->fresh(),
+            $targetStatus,
+            $note,
+            true,
+            'Admin manage order status update'
+        );
+    }
+
+    private function markMenuSeen(string $section): void
+    {
+        if (auth()->check()) {
+            Cache::forever('admin_menu_seen_' . $section . '_' . auth()->id(), now()->toDateTimeString());
+        }
     }
 }

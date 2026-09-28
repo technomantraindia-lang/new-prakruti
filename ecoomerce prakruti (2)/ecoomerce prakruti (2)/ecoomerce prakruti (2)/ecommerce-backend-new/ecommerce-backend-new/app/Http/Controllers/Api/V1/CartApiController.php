@@ -220,7 +220,8 @@ class CartApiController extends Controller
             'qty' => 'required|integer|min:1',
         ]);
 
-        $cartItem = CartItem::findOrFail($id);
+        $cart = $this->getOrCreateCart($request);
+        $cartItem = CartItem::where('cart_id', $cart->id)->findOrFail($id);
         $product = $cartItem->product;
         $variation = $cartItem->variation;
         $stockQty = $variation ? (int) $variation->stock_qty : ($product ? (int) $product->stock_qty : 0);
@@ -239,7 +240,8 @@ class CartApiController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $cartItem = CartItem::find($id);
+        $cart = $this->getOrCreateCart($request);
+        $cartItem = CartItem::where('cart_id', $cart->id)->find($id);
         if ($cartItem) {
             $cartItem->delete();
         }

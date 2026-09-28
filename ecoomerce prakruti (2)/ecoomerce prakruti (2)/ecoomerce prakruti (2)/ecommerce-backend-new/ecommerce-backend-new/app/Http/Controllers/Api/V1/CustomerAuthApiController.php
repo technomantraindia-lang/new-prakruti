@@ -8,7 +8,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CustomerAuthApiController extends Controller
 {
@@ -139,6 +141,89 @@ class CustomerAuthApiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Logged out successfully. Token revoked.',
+        ]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please enter a valid email address.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $email = strtolower(trim((string) $request->email));
+        $user = User::where('email', $email)->first();
+
+        if ($user && $user->isCustomer()) {
+            Password::sendResetLink(['email' => $email]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'If this customer email exists, a password reset link has been sent.',
+        ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $email = strtolower(trim((string) $request->email));
+        $user = User::where('email', $email)->first();
+
+        if (! $user || ! $user->isCustomer()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This reset link is invalid for customer login.',
+            ], 422);
+        }
+
+        $status = Password::reset(
+            [
+                'email' => $email,
+                'password' => $request->password,
+                'password_confirmation' => $request->password_confirmation,
+                'token' => $request->token,
+            ],
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                $user->tokens()->delete();
+            }
+        );
+
+        if ($status !== Password::PASSWORD_RESET) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This reset link is invalid or expired.',
+            ], 422);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password reset successfully. Please login with your new password.',
         ]);
     }
 

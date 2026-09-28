@@ -43,16 +43,19 @@ class FamilyPackApiController extends Controller
             'nutrient_summary' => 'nullable|array',
             'recommendations' => 'required|array|min:1',
             'recommendations.*.product_id' => 'required|exists:products,id',
+            'recommendations.*.var_id' => 'nullable|exists:product_variations,id',
             'recommendations.*.name' => 'required|string|max:255',
             'recommendations.*.qty' => 'required|integer|min:1',
             'recommendations.*.price' => 'nullable|numeric|min:0',
             'recommendations.*.label' => 'nullable|string|max:120',
             'recommendations.*.benefit' => 'nullable|string|max:255',
+            'recommendations.*.package_size' => 'nullable|string|max:120',
+            'recommendations.*.pack_weight' => 'nullable|numeric|min:0',
             'monthly_total' => 'nullable|numeric|min:0',
         ]);
 
-        $nextPurchaseAt = now()->addMonth();
-        $nextReminderAt = $nextPurchaseAt->copy()->subDays(3);
+        $nextPurchaseAt = now()->addDays(30);
+        $nextReminderAt = now()->addDays(25);
 
         if (! Schema::hasTable('family_packs')) {
             return response()->json([

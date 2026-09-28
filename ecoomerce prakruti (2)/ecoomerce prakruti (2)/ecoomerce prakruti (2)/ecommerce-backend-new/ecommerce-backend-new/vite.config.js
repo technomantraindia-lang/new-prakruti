@@ -8,4 +8,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: 'localhost',
+        proxy: {
+            '^/(?!@vite|resources|node_modules|__vite_ping)': {
+                target: 'http://127.0.0.1:8000',
+                changeOrigin: false,
+            },
+        },
+    },
 });

@@ -74,7 +74,7 @@ const LegalPage = ({ type = 'privacy' }) => {
 
           <div className="legal-contact-note">
             <h2>Need Help?</h2>
-            <p>For questions about this page, contact us at hello@prakruti.com. Last updated: September 22, 2026.</p>
+            <p>For questions about this page, contact us at info@prakrutiorganic.com. Last updated: September 22, 2026.</p>
           </div>
         </div>
       </div>

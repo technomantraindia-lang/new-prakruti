@@ -24,9 +24,10 @@ class FamilyPackReminderNotification extends Notification
         return (new MailMessage)
             ->subject('Your Prakruti Family Pack is ready to reorder')
             ->greeting('Hello ' . ($notifiable->name ?: 'there') . ',')
-            ->line('Your saved monthly family pack is due soon.')
+            ->line('Your saved family pack is ready to add again.')
+            ->line('Log in and add your previous pack for your family in one click.')
             ->line("Estimated pack value: Rs. {$total}.")
-            ->action('Reorder Family Pack', url('/#family-pack'))
+            ->action('Add Previous Family Pack', $this->familyPackUrl())
             ->line('You can edit family member ages, quantities, and extra products before purchase.');
     }
 
@@ -34,14 +35,21 @@ class FamilyPackReminderNotification extends Notification
     {
         return [
             'title' => 'Family Pack reorder reminder',
-            'message' => 'Your saved monthly family pack is due soon.',
+            'message' => 'Your saved family pack is ready to add again.',
             'level' => 'info',
-            'action_url' => url('/#family-pack'),
+            'action_url' => $this->familyPackUrl(),
             'metadata' => [
                 'family_pack_id' => $this->familyPack->id,
                 'monthly_total' => (float) $this->familyPack->monthly_total,
                 'next_purchase_at' => $this->familyPack->next_purchase_at?->toISOString(),
             ],
         ];
+    }
+
+    private function familyPackUrl(): string
+    {
+        $frontendUrl = env('FRONTEND_URL') ?: (app()->environment('local') ? 'http://localhost:5173' : config('app.url'));
+
+        return rtrim((string) $frontendUrl, '/') . '/#family-pack';
     }
 }

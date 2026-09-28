@@ -219,6 +219,32 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
         }
 
+        .field-wrap.has-password-toggle .form-control {
+            padding-right: 54px;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(29, 79, 32, 0.08);
+            color: var(--prakruti-green);
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .password-toggle-btn:hover {
+            background: rgba(29, 79, 32, 0.15);
+        }
+
         .form-control:focus {
             box-shadow: 0 0 0 4px rgba(45,90,39,.13);
             border-color: #2d5a27;
@@ -244,6 +270,23 @@
             transform: translateY(-2px);
             box-shadow: 0 20px 34px rgba(29,79,32,.32);
         }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin: -4px 0 18px;
+            font-size: 14px;
+        }
+
+        .form-options a {
+            color: var(--prakruti-green);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .form-options a:hover { text-decoration: underline; }
 
         .security-note {
             margin-top: 28px;
@@ -319,24 +362,39 @@
                         </div>
                     @endif
 
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            <i class="fas fa-circle-check me-2"></i>{{ session('status') }}
+                        </div>
+                    @endif
+
                     <form method="POST" action="{{ route('admin.login.post') }}">
                         @csrf
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <div class="field-wrap">
                                 <i class="fas fa-envelope"></i>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="admin@prakruti.com" autocomplete="email" required autofocus>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="info@prakrutiorganic.com" autocomplete="email" required autofocus>
                             </div>
                             @error('email')<span class="invalid-feedback d-block">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <div class="field-wrap">
+                            <div class="field-wrap has-password-toggle">
                                 <i class="fas fa-lock"></i>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                                <button type="button" class="password-toggle-btn" data-toggle-password="#password" aria-label="Show password">👁</button>
                             </div>
                             @error('password')<span class="invalid-feedback d-block">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-options">
+                            <label class="form-check-label d-flex align-items-center gap-2 mb-0" for="remember">
+                                <input class="form-check-input mt-0" type="checkbox" name="remember" id="remember" value="1" @checked(old('remember'))>
+                                Remember me
+                            </label>
+                            <a href="{{ route('admin.password.request') }}">Forgot password?</a>
                         </div>
 
                         <button type="submit" class="btn btn-login mt-2">
@@ -354,5 +412,17 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const input = document.querySelector(button.getAttribute('data-toggle-password'));
+                if (!input) return;
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                button.textContent = isPassword ? '🙈' : '👁';
+                button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -10,3 +10,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 @endif
+@if (session('import_errors'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>CSV rows skipped:</strong>
+        <ul class="mb-0 mt-2">
+            @foreach (session('import_errors') as $importError)
+                <li>{{ $importError }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif

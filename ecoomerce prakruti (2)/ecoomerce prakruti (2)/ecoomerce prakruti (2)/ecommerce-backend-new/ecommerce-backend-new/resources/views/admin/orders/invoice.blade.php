@@ -181,7 +181,7 @@
                     </div>
                     <div>
                         <div class="brand-name">Prakruti Organic</div>
-                        <div class="tagline">Rooted in Nature. Backed by Science.</div>
+                        <div class="tagline">Crafted Traditionally. Tested Scientifically.</div>
                     </div>
                 </div>
                 <div class="title">

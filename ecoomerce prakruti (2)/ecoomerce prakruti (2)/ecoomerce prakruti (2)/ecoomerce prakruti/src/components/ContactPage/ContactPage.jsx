@@ -6,7 +6,6 @@ const ContactPage = ({ onShopClick }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     subject: '',
     message: '',
     agree: false
@@ -39,7 +38,6 @@ const ContactPage = ({ onShopClick }) => {
     const res = await api.sendInquiry({
       name: formData.name,
       email: formData.email,
-      phone: formData.phone,
       msg: `[Subject: ${formData.subject || 'General'}] ${formData.message}`,
     });
 
@@ -47,7 +45,6 @@ const ContactPage = ({ onShopClick }) => {
     setFormData({
       name: '',
       email: '',
-      phone: '',
       subject: '',
       message: '',
       agree: false
@@ -104,21 +101,11 @@ const ContactPage = ({ onShopClick }) => {
                 </div>
               </div>
 
-              <div className="input-row-split">
-                <div className="input-wrap icon-phone">
-                  <input 
-                    type="tel" 
-                    name="phone" 
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                
+              <div className="input-row-split single-field-row">
                 <div className="input-wrap icon-subject">
-                  <input 
-                    type="text" 
-                    name="subject" 
+                  <input
+                    type="text"
+                    name="subject"
                     placeholder="Subject *"
                     value={formData.subject}
                     onChange={handleInputChange}
@@ -184,7 +171,7 @@ const ContactPage = ({ onShopClick }) => {
                 <div className="info-item-icon">✉️</div>
                 <div className="info-item-text">
                   <h4>Email</h4>
-                  <p className="main-info-txt">hello@prakruti.com</p>
+                  <p className="main-info-txt">info@prakrutiorganic.com</p>
                   <p className="sub-info-txt">We'll reply as soon as possible</p>
                 </div>
               </div>
@@ -199,15 +186,15 @@ const ContactPage = ({ onShopClick }) => {
               </div>
 
               <a 
-                href="mailto:hello@prakruti.com" 
+                href="mailto:info@prakrutiorganic.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="info-item-card whatsapp-link-card"
+                className="info-item-card support-link-card"
               >
-                <div className="info-item-icon green-whatsapp">💬</div>
+                <div className="info-item-icon green-support">💬</div>
                 <div className="info-item-text">
                   <h4>Customer Support</h4>
-                  <p className="main-info-txt">hello@prakruti.com</p>
+                  <p className="main-info-txt">info@prakrutiorganic.com</p>
                   <p className="sub-info-txt font-green-link">Email us anytime</p>
                 </div>
               </a>

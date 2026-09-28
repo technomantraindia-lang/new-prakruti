@@ -21,7 +21,7 @@ export const saveLocalFamilyPack = (pack) => {
 export const familyPacksApi = {
   getLatest: async () => {
     if (!getAuthToken()) {
-      return { success: true, data: getLocalFamilyPack(), fromLocal: true };
+      return { success: true, data: null, requiresLogin: true };
     }
 
     const res = await apiClient('/family-packs/latest');
@@ -30,15 +30,22 @@ export const familyPacksApi = {
   },
 
   save: async (payload) => {
-    saveLocalFamilyPack(payload);
-
     if (!getAuthToken()) {
-      return { success: true, data: payload, fromLocal: true };
+      return {
+        success: false,
+        status: 401,
+        requiresLogin: true,
+        message: 'Please login or register to save your family pack.',
+      };
     }
 
-    return await apiClient('/family-packs', {
+    const res = await apiClient('/family-packs', {
       method: 'POST',
       body: JSON.stringify(payload),
     });
+
+    if (res.success && res.data) saveLocalFamilyPack(res.data);
+
+    return res;
   },
 };

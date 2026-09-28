@@ -56,6 +56,8 @@ export const api = {
     }
     return getStoredUser();
   },
+  forgotPassword: async (email) => authApi.forgotPassword(email),
+  resetPassword: async (payload) => authApi.resetPassword(payload),
   getProducts: async (params) => {
     const res = await productsApi.getProducts(params);
     return res.data || [];

@@ -54,7 +54,7 @@
             <li><strong>GST:</strong> {{ $product->gst_percentage }}%</li>
             @if($product->weight)<li><strong>Weight:</strong> {{ $product->weight }} kg</li>@endif
         </ul>
-        @if($product->featured)<span class="badge bg-warning text-dark mb-3">Featured Product</span>@endif
+        @if($product->featured)<span class="badge bg-warning text-dark mb-3">Best Seller</span>@endif
         <hr>
         <h5>Description</h5>
         <div class="text-muted">{!! nl2br(e($product->description)) !!}</div>

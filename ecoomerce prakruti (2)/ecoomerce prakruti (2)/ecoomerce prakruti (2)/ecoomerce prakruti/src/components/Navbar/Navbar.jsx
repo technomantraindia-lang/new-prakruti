@@ -40,7 +40,7 @@ const Navbar = ({ onAccountClick, currentPage, setCurrentPage, onCartClick, cart
           <img src={logo} alt="Prakruti Logo" className="logo-img" />
           <div className="logo-text">
             <span className="logo-name">Prakruti</span>
-            <span className="logo-tagline">Rooted in Nature. Backed by Science.</span>
+            <span className="logo-tagline">Crafted Traditionally. Tested Scientifically.</span>
           </div>
         </a>
 
@@ -181,9 +181,10 @@ const Navbar = ({ onAccountClick, currentPage, setCurrentPage, onCartClick, cart
 
           {/* Mobile menu button */}
           <button
-            className="mobile-menu-btn"
+            className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             <span></span>
             <span></span>

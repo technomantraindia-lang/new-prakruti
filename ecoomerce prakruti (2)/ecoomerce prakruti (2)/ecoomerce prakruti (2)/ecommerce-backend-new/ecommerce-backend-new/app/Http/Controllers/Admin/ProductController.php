@@ -10,14 +10,20 @@ use App\Models\ProductAttribute;
 use App\Models\ProductImage;
 use App\Models\ProductVariation;
 use App\Services\ImageUploadService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 use App\Services\InventoryService;
 
 class ProductController extends Controller
 {
+    private const PRODUCT_DETAIL_IMAGE_MIN = 1;
+    private const PRODUCT_DETAIL_IMAGE_MAX = 7;
+
     public function __construct(
         private ImageUploadService $uploader,
         private InventoryService $inventoryService
@@ -127,7 +133,7 @@ class ProductController extends Controller
 
         $product->update($data);
         $this->syncPackageVariants($product, $packages);
-        $this->removeGalleryImages($request->input('remove_gallery', []));
+        $this->removeGalleryImages($product, $request->input('remove_gallery', []));
         $this->saveGallery($product, $request);
 
         if ($targetStock !== (int) $product->stock_qty) {
@@ -139,11 +145,49 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $this->uploader->delete($product->image);
-        foreach ($product->images as $img) {
-            $this->uploader->delete($img->image);
+        try {
+            $mainImage = $product->image;
+            $galleryImages = $product->images()->pluck('image')->filter()->all();
+
+            DB::transaction(function () use ($product) {
+                $variationIds = $product->variations()->pluck('id');
+
+                if (Schema::hasTable('order_items')) {
+                    DB::table('order_items')
+                        ->where('product_id', $product->id)
+                        ->update(['product_id' => null]);
+
+                    if ($variationIds->isNotEmpty() && Schema::hasColumn('order_items', 'var_id')) {
+                        DB::table('order_items')
+                            ->whereIn('var_id', $variationIds)
+                            ->update(['var_id' => null]);
+                    }
+                }
+
+                if (Schema::hasTable('return_items') && Schema::hasColumn('return_items', 'product_id')) {
+                    DB::table('return_items')
+                        ->where('product_id', $product->id)
+                        ->update(['product_id' => null]);
+                }
+
+                if (Schema::hasTable('inquiries') && Schema::hasColumn('inquiries', 'product_id')) {
+                    DB::table('inquiries')
+                        ->where('product_id', $product->id)
+                        ->update(['product_id' => null]);
+                }
+
+                $product->delete();
+            });
+
+            $this->uploader->delete($mainImage);
+            foreach ($galleryImages as $image) {
+                $this->uploader->delete($image);
+            }
+        } catch (QueryException) {
+            return redirect()
+                ->route('admin.products.index')
+                ->with('error', 'This product could not be deleted because it is linked to protected records. Please remove linked records and try again.');
         }
-        $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
@@ -195,60 +239,238 @@ class ProductController extends Controller
         return view('admin.products.import');
     }
 
+    public function downloadImportTemplate()
+    {
+        return response()->streamDownload(
+            function () {
+                $output = fopen('php://output', 'w');
+                fputcsv($output, [
+                    'name', 'slug', 'sku', 'category', 'brand', 'hsn_code', 'price', 'sale_price', 'cost_price',
+                    'gst_percentage', 'stock_qty', 'low_stock_qty', 'unit', 'min_order_qty', 'weight', 'short_desc',
+                    'description', 'nutritional_info', 'product_type', 'shelf_life', 'ingredient', 'packaging_type',
+                    'storage', 'seo_title', 'seo_desc', 'seo_keywords', 'status', 'featured',
+                    'package_1_label', 'package_1_price', 'package_1_sale_price', 'package_1_stock_qty', 'package_1_status',
+                    'package_2_label', 'package_2_price', 'package_2_sale_price', 'package_2_stock_qty', 'package_2_status',
+                ]);
+                fputcsv($output, [
+                    'Masoor Dal / Pink Lentil Split', 'masoor-dal-pink-lentil-split', 'PRK-CSV-001', 'Cereal & Pulses',
+                    'Prakruti Organic', '', 120, 108, '', 5, 100, 5, 'packet', 1, 1,
+                    'Soft, naturally processed dal', 'Clean split masoor dal for everyday cooking.', 'Energy: 343 kcal; Protein: 22g',
+                    'Dal', '12 Months', 'Masoor Dal', 'Food Grade Standing Pouch', 'Store in a dry airtight container',
+                    '', '', '', 'active', 1, '500g', 120, 108, 50, 'active', '1kg', 220, 198, 50, 'active',
+                ]);
+                fclose($output);
+            },
+            'prakruti-products-import-template.csv',
+            ['Content-Type' => 'text/csv; charset=UTF-8']
+        );
+    }
+
     public function importStore(Request $request)
     {
         $request->validate(['csv_file' => 'required|file|mimes:csv,txt|max:2048']);
 
         $file = fopen($request->file('csv_file')->getRealPath(), 'r');
-        $header = fgetcsv($file);
-        $count = 0;
-
-        while (($row = fgetcsv($file)) !== false) {
-            $data = array_combine($header, $row);
-            if (empty($data['name']) || empty($data['sku'])) {
-                continue;
-            }
-
-            $category = Category::where('name', $data['category'] ?? '')->first();
-            if (! $category) {
-                continue;
-            }
-
-            $initialStock = max((int) ($data['stock_qty'] ?? 0), 0);
-
-            $existing = Product::where('sku', $data['sku'])->first();
-            if ($existing) {
-                $existing->update([
-                    'name' => $data['name'],
-                    'slug' => $data['slug'] ?? Str::slug($data['name']),
-                    'category_id' => $category->id,
-                    'price' => $data['price'] ?? 0,
-                    'sale_price' => $data['sale_price'] ?? null,
-                    'unit' => $data['unit'] ?? 'pcs',
-                    'status' => $data['status'] ?? 'active',
-                ]);
-                $this->inventoryService->adjustStock($existing, $initialStock, 'csv_import_stock');
-            } else {
-                $product = Product::create([
-                    'sku' => $data['sku'],
-                    'name' => $data['name'],
-                    'slug' => $data['slug'] ?? Str::slug($data['name']),
-                    'category_id' => $category->id,
-                    'price' => $data['price'] ?? 0,
-                    'sale_price' => $data['sale_price'] ?? null,
-                    'stock_qty' => 0,
-                    'unit' => $data['unit'] ?? 'pcs',
-                    'status' => $data['status'] ?? 'active',
-                ]);
-                if ($initialStock > 0) {
-                    $this->inventoryService->adjustStock($product, $initialStock, 'opening_stock');
-                }
-            }
-            $count++;
+        if (! $file) {
+            return back()->with('error', 'The CSV file could not be opened.');
         }
+
+        $rawHeader = fgetcsv($file);
+        $header = collect($rawHeader ?: [])->map(function ($column) {
+            $column = preg_replace('/^\\xEF\\xBB\\xBF/', '', (string) $column);
+            return Str::lower(trim($column));
+        })->all();
+
+        $requiredColumns = ['name', 'sku', 'category'];
+        $missingColumns = array_values(array_diff($requiredColumns, $header));
+        if ($missingColumns || count($header) !== count(array_unique($header))) {
+            fclose($file);
+            $message = $missingColumns
+                ? 'CSV is missing required columns: ' . implode(', ', $missingColumns) . '.'
+                : 'CSV contains duplicate column names. Please use the supplied template.';
+
+            return back()->withInput()->with('error', $message);
+        }
+
+        $count = 0;
+        $skipped = [];
+        $rowNumber = 1;
+
+        DB::transaction(function () use ($file, $header, &$count, &$skipped, &$rowNumber) {
+            while (($row = fgetcsv($file)) !== false) {
+                $rowNumber++;
+                if (count($row) === 1 && trim((string) $row[0]) === '') {
+                    continue;
+                }
+
+                if (count($row) !== count($header)) {
+                    $skipped[] = "Row {$rowNumber}: column count does not match the header.";
+                    continue;
+                }
+
+                $data = array_combine($header, $row);
+                $name = trim((string) ($data['name'] ?? ''));
+                $sku = trim((string) ($data['sku'] ?? ''));
+                $category = $this->resolveImportCategory($data['category'] ?? '');
+
+                if ($name === '' || $sku === '') {
+                    $skipped[] = "Row {$rowNumber}: name and sku are required.";
+                    continue;
+                }
+
+                if (! $category) {
+                    $skipped[] = "Row {$rowNumber}: category '{$data['category']}' was not found.";
+                    continue;
+                }
+
+                $price = $this->csvNumber($data['price'] ?? '', 0);
+                $salePrice = $this->csvNumber($data['sale_price'] ?? '', null);
+                $costPrice = $this->csvNumber($data['cost_price'] ?? '', null);
+                $gst = $this->csvNumber($data['gst_percentage'] ?? '', $category->gst_percentage ?? 5);
+                $stock = $this->csvInteger($data['stock_qty'] ?? '', 0);
+                $lowStock = $this->csvInteger($data['low_stock_qty'] ?? '', 5);
+                $minOrder = max($this->csvInteger($data['min_order_qty'] ?? '', 1), 1);
+                $weight = $this->csvNumber($data['weight'] ?? '', null);
+                $status = in_array(Str::lower(trim((string) ($data['status'] ?? 'active'))), ['active', 'inactive'], true)
+                    ? Str::lower(trim((string) ($data['status'] ?? 'active')))
+                    : 'active';
+                $existing = Product::where('sku', $sku)->first();
+                $packages = $this->packagesFromCsv($data, $price, $salePrice, $stock);
+                $targetStock = $packages ? array_sum(array_column($packages, 'stock_qty')) : $stock;
+                $slugInput = trim((string) ($data['slug'] ?? '')) ?: $name;
+                $slug = $this->uniqueSlug($slugInput, 'products', 'slug', $existing?->id);
+                $brand = $this->resolveImportBrand($data['brand'] ?? '');
+
+                $payload = [
+                    'name' => $name,
+                    'slug' => $slug,
+                    'sku' => $sku,
+                    'category_id' => $category->id,
+                    'brand_id' => $brand?->id,
+                    'price' => $price,
+                    'sale_price' => $salePrice,
+                    'cost_price' => $costPrice,
+                    'gst_percentage' => $gst,
+                    'stock_qty' => 0,
+                    'low_stock_qty' => $lowStock,
+                    'unit' => trim((string) ($data['unit'] ?? 'packet')) ?: 'packet',
+                    'min_order_qty' => $minOrder,
+                    'weight' => $weight,
+                    'hsn_code' => trim((string) ($data['hsn_code'] ?? '')) ?: null,
+                    'short_desc' => $data['short_desc'] ?? null,
+                    'description' => $data['description'] ?? null,
+                    'nutritional_info' => $data['nutritional_info'] ?? null,
+                    'product_information' => collect([
+                        'product_type' => $data['product_type'] ?? null,
+                        'shelf_life' => $data['shelf_life'] ?? null,
+                        'ingredient' => $data['ingredient'] ?? null,
+                        'packaging_type' => $data['packaging_type'] ?? null,
+                        'storage' => $data['storage'] ?? null,
+                    ])->map(fn ($value) => filled($value) ? trim((string) $value) : null)->filter()->all(),
+                    'seo_title' => $data['seo_title'] ?? null,
+                    'seo_desc' => $data['seo_desc'] ?? null,
+                    'seo_keywords' => $data['seo_keywords'] ?? null,
+                    'status' => $status,
+                    'featured' => $this->csvBoolean($data['featured'] ?? false),
+                ];
+
+                if ($packages) {
+                    $this->applyDefaultPackageToProductData($payload, $packages);
+                    $payload['stock_qty'] = 0;
+                }
+
+                if ($existing) {
+                    $existing->update($payload);
+                    $product = $existing->fresh();
+                } else {
+                    $product = Product::create($payload);
+                }
+
+                if ($packages) {
+                    $this->syncPackageVariants($product, $packages);
+                }
+
+                $this->inventoryService->adjustStock($product, $targetStock, 'csv_import_stock');
+                $count++;
+            }
+        });
         fclose($file);
 
-        return redirect()->route('admin.products.index')->with('success', "{$count} products imported successfully.");
+        $message = "{$count} product(s) imported successfully.";
+        if ($skipped) {
+            $message .= ' ' . count($skipped) . ' row(s) skipped.';
+        }
+
+        return redirect()->route('admin.products.index')
+            ->with('success', $message)
+            ->with('import_errors', array_slice($skipped, 0, 10));
+    }
+
+    private function resolveImportCategory(string $value): ?Category
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return null;
+        }
+
+        return is_numeric($value)
+            ? Category::find((int) $value)
+            : Category::whereRaw('LOWER(name) = ?', [Str::lower($value)])
+                ->orWhere('slug', Str::slug($value))
+                ->first();
+    }
+
+    private function resolveImportBrand(string $value): ?Brand
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return null;
+        }
+
+        return Brand::whereRaw('LOWER(name) = ?', [Str::lower($value)])
+            ->orWhere('slug', Str::slug($value))
+            ->first();
+    }
+
+    private function csvNumber($value, $default = null)
+    {
+        $value = trim((string) $value);
+        return $value === '' ? $default : (is_numeric($value) ? (float) $value : $default);
+    }
+
+    private function csvInteger($value, int $default = 0): int
+    {
+        $value = trim((string) $value);
+        return $value === '' || ! is_numeric($value) ? $default : max((int) $value, 0);
+    }
+
+    private function csvBoolean($value): bool
+    {
+        return in_array(Str::lower(trim((string) $value)), ['1', 'true', 'yes', 'y'], true);
+    }
+
+    private function packagesFromCsv(array $data, $defaultPrice, $defaultSalePrice, int $defaultStock): array
+    {
+        $packages = [];
+        for ($index = 1; $index <= 10; $index++) {
+            $label = trim((string) ($data["package_{$index}_label"] ?? ''));
+            if ($label === '') {
+                continue;
+            }
+
+            $packages[] = [
+                'id' => null,
+                'label' => $label,
+                'price' => $this->csvNumber($data["package_{$index}_price"] ?? '', $defaultPrice),
+                'sale_price' => $this->csvNumber($data["package_{$index}_sale_price"] ?? '', $defaultSalePrice),
+                'stock_qty' => $this->csvInteger($data["package_{$index}_stock_qty"] ?? '', $defaultStock),
+                'status' => in_array(Str::lower(trim((string) ($data["package_{$index}_status"] ?? 'active'))), ['active', 'inactive'], true)
+                    ? Str::lower(trim((string) ($data["package_{$index}_status"] ?? 'active')))
+                    : 'active',
+            ];
+        }
+
+        return $packages;
     }
 
     public function toggleStatus(Product $product)
@@ -262,7 +484,7 @@ class ProductController extends Controller
     {
         $product->update(['featured' => ! $product->featured]);
 
-        return back()->with('success', 'Featured status updated.');
+        return back()->with('success', 'Best seller status updated.');
     }
 
     private function validateProduct(Request $request, ?int $id = null): array
@@ -270,7 +492,7 @@ class ProductController extends Controller
         $skuRule = 'nullable|string|max:100|unique:products,sku' . ($id ? ",{$id}" : '');
         $slugRule = 'nullable|string|max:255|unique:products,slug' . ($id ? ",{$id}" : '');
 
-        return $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'slug' => $slugRule,
             'sku' => $skuRule,
@@ -307,9 +529,37 @@ class ProductController extends Controller
             'status' => 'required|in:active,inactive',
             'featured' => 'nullable|boolean',
             'image' => 'nullable|image',
-            'gallery' => 'nullable|array',
+            'gallery' => 'nullable|array|max:' . self::PRODUCT_DETAIL_IMAGE_MAX,
             'gallery.*' => 'nullable|image',
+            'remove_gallery' => 'nullable|array',
+            'remove_gallery.*' => 'nullable|integer|exists:product_images,id',
         ]);
+
+        $validator->after(function ($validator) use ($request, $id) {
+            $newGalleryCount = collect($request->file('gallery', []))->filter()->count();
+            $removeGalleryIds = collect($request->input('remove_gallery', []))
+                ->filter()
+                ->map(fn ($value) => (int) $value)
+                ->unique()
+                ->values();
+
+            $existingGalleryCount = $id ? ProductImage::where('product_id', $id)->count() : 0;
+            $validRemoveCount = ($id && $removeGalleryIds->isNotEmpty())
+                ? ProductImage::where('product_id', $id)->whereIn('id', $removeGalleryIds)->count()
+                : 0;
+
+            $totalGalleryCount = $existingGalleryCount - $validRemoveCount + $newGalleryCount;
+
+            if ($totalGalleryCount < self::PRODUCT_DETAIL_IMAGE_MIN) {
+                $validator->errors()->add('gallery', 'Please add at least 1 product detail photo.');
+            }
+
+            if ($totalGalleryCount > self::PRODUCT_DETAIL_IMAGE_MAX) {
+                $validator->errors()->add('gallery', 'You can keep a maximum of 7 product detail photos. Please remove extra photos before saving.');
+            }
+        });
+
+        return $validator->validate();
     }
 
     private function saveGallery(Product $product, Request $request): void
@@ -318,15 +568,22 @@ class ProductController extends Controller
             return;
         }
 
+        $remainingSlots = max(0, self::PRODUCT_DETAIL_IMAGE_MAX - $product->images()->count());
+        $files = array_slice($request->file('gallery'), 0, $remainingSlots);
+
+        if (! $files) {
+            return;
+        }
+
         $sort = $product->images()->max('sort_order') ?? 0;
-        foreach ($this->uploader->uploadMany($request->file('gallery'), 'products/gallery') as $path) {
+        foreach ($this->uploader->uploadMany($files, 'products/gallery') as $path) {
             $product->images()->create(['image' => $path, 'sort_order' => ++$sort]);
         }
     }
 
-    private function removeGalleryImages(array $ids): void
+    private function removeGalleryImages(Product $product, array $ids): void
     {
-        foreach (ProductImage::whereIn('id', $ids)->get() as $img) {
+        foreach ($product->images()->whereIn('id', $ids)->get() as $img) {
             $this->uploader->delete($img->image);
             $img->delete();
         }
@@ -405,6 +662,13 @@ class ProductController extends Controller
             $variation = ! empty($package['id'])
                 ? $product->variations()->whereKey($package['id'])->first()
                 : null;
+
+            if (! $variation) {
+                $variation = $product->variations()
+                    ->where('attr_id', $weightAttribute->id)
+                    ->where('attr_val', $package['label'])
+                    ->first();
+            }
 
             $targetStock = $package['stock_qty'];
             $payload = [

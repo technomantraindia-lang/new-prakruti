@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class InquiryController extends Controller
 {
     public function index(Request $request)
     {
+        $this->markMenuSeen('inquiries');
+
         $query = Inquiry::with('product')->latest();
 
         if ($request->filled('status')) {
@@ -22,6 +25,8 @@ class InquiryController extends Controller
 
     public function show(Inquiry $inquiry)
     {
+        $this->markMenuSeen('inquiries');
+
         $inquiry->load('product');
         return view('admin.inquiries.show', compact('inquiry'));
     }
@@ -36,5 +41,12 @@ class InquiryController extends Controller
         $inquiry->update($data);
 
         return redirect()->route('admin.inquiries.show', $inquiry)->with('success', 'Inquiry updated successfully.');
+    }
+
+    private function markMenuSeen(string $section): void
+    {
+        if (auth()->check()) {
+            Cache::forever('admin_menu_seen_' . $section . '_' . auth()->id(), now()->toDateTimeString());
+        }
     }
 }

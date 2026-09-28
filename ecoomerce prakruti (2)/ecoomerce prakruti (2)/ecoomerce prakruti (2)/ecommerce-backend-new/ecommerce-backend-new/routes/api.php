@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AddressApiController;
+use App\Http\Controllers\Api\V1\BannerApiController;
 use App\Http\Controllers\Api\V1\CartApiController;
 use App\Http\Controllers\Api\V1\CatalogMetaApiController;
 use App\Http\Controllers\Api\V1\CategoryApiController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Api\V1\ConsultationRequestApiController;
 use App\Http\Controllers\Api\V1\CustomerAuthApiController;
 use App\Http\Controllers\Api\V1\CustomerOrderApiController;
 use App\Http\Controllers\Api\V1\FamilyPackApiController;
+use App\Http\Controllers\Api\V1\FarmGalleryApiController;
 use App\Http\Controllers\Api\V1\InquiryApiController;
 use App\Http\Controllers\Api\V1\ProductApiController;
 use App\Http\Controllers\Api\V1\ReviewApiController;
@@ -33,19 +35,13 @@ Route::prefix('v1')->middleware(['throttle:api', 'api.optional'])->group(functio
     Route::get('/categories/{slug}', [CategoryApiController::class, 'show']);
     Route::get('/brands', [CatalogMetaApiController::class, 'brands']);
     Route::get('/attributes', [CatalogMetaApiController::class, 'attributes']);
+    Route::get('/banners', [BannerApiController::class, 'index']);
+    Route::get('/farm-gallery', [FarmGalleryApiController::class, 'index']);
 
 
     // Public Shipping & Tax APIs
     Route::get('/shipping-methods', [ShippingTaxApiController::class, 'shippingMethods']);
     Route::get('/taxes', [ShippingTaxApiController::class, 'taxes']);
-
-    // Cart APIs
-    Route::get('/cart', [CartApiController::class, 'index']);
-    Route::post('/cart/items', [CartApiController::class, 'store']);
-    Route::put('/cart/items/{id}', [CartApiController::class, 'update']);
-    Route::delete('/cart/items/{id}', [CartApiController::class, 'destroy']);
-    Route::delete('/cart', [CartApiController::class, 'clear']);
-
 
     // Public Inquiry / Contact Form API
     Route::post('/inquiries', [InquiryApiController::class, 'store']);
@@ -56,12 +52,21 @@ Route::prefix('v1')->middleware(['throttle:api', 'api.optional'])->group(functio
     // Customer Authentication APIs (Strictly Rate-Limited)
     Route::post('/register', [CustomerAuthApiController::class, 'register'])->middleware('throttle:login');
     Route::post('/login', [CustomerAuthApiController::class, 'login'])->middleware('throttle:login');
+    Route::post('/forgot-password', [CustomerAuthApiController::class, 'forgotPassword'])->middleware('throttle:login');
+    Route::post('/reset-password', [CustomerAuthApiController::class, 'resetPassword'])->middleware('throttle:login');
 
     // Authenticated Customer APIs
     Route::middleware(\App\Http\Middleware\AuthenticateApiToken::class)->group(function () {
         Route::post('/logout', [CustomerAuthApiController::class, 'logout']);
         Route::get('/me', [CustomerAuthApiController::class, 'me']);
         Route::put('/me', [CustomerAuthApiController::class, 'updateProfile']);
+
+        // Cart APIs
+        Route::get('/cart', [CartApiController::class, 'index']);
+        Route::post('/cart/items', [CartApiController::class, 'store']);
+        Route::put('/cart/items/{id}', [CartApiController::class, 'update']);
+        Route::delete('/cart/items/{id}', [CartApiController::class, 'destroy']);
+        Route::delete('/cart', [CartApiController::class, 'clear']);
 
         // Orders History
         Route::post('/checkout', [CheckoutApiController::class, 'store']);

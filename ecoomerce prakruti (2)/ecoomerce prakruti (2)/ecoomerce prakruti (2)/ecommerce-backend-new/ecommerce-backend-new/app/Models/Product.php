@@ -10,7 +10,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name', 'slug', 'sku', 'hsn_code', 'category_id', 'sub_category_id', 'sub_sub_category_id', 'brand_id',
-        'price', 'sale_price', 'cost_price', 'stock_qty', 'reserved_stock', 'low_stock_qty',
+        'price', 'sale_price', 'gst_percentage', 'cost_price', 'stock_qty', 'reserved_stock', 'low_stock_qty',
         'unit', 'min_order_qty', 'weight', 'image', 'short_desc', 'description', 'nutritional_info', 'product_information',
         'seo_title', 'seo_desc', 'seo_keywords', 'status', 'featured',
     ];
@@ -18,6 +18,7 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
+        'gst_percentage' => 'decimal:2',
         'cost_price' => 'decimal:2',
         'featured' => 'boolean',
         'product_information' => 'array',

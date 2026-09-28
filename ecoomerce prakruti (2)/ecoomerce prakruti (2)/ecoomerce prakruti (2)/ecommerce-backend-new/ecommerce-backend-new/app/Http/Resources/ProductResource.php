@@ -36,6 +36,8 @@ class ProductResource extends JsonResource
             'storage' => $customProductInformation['storage'] ?? 'Store in dry, airtight container',
         ], fn ($value) => filled($value));
 
+        $images = array_slice(array_values(array_unique($images)), 0, 7);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -61,7 +63,7 @@ class ProductResource extends JsonResource
             'category_data' => $this->whenLoaded('category', fn () => $this->category ? new CategoryResource($this->category) : null),
             'brand' => $this->whenLoaded('brand', fn () => $this->brand ? new BrandResource($this->brand) : null),
             'image' => $images[0] ?? null,
-            'images' => array_values(array_unique($images)),
+            'images' => $images,
             'types' => ['Organic', 'Natural'],
             'weight' => $this->weight ? (string) $this->weight : ($activeVariations?->first()?->attr_val),
             'variations' => $activeVariations ? VariationResource::collection($activeVariations) : VariationResource::collection($this->whenLoaded('variations')),

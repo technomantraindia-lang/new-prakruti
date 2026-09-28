@@ -2,7 +2,7 @@ import React from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import './PromoBanner.css'
 
-import familyPackBg from '../../assets/images/fp bg.png'
+import familyPackBg from '../../assets/images/22e5a66a-525b-4ef8-84aa-107d634de812.png'
 
 const PromoBanner = () => {
   return (

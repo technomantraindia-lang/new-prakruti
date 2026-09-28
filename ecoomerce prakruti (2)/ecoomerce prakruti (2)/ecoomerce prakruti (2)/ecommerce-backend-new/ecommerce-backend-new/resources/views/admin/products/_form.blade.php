@@ -177,7 +177,8 @@
 
                 <div class="form-check">
                     <input type="checkbox" name="featured" value="1" class="form-check-input" id="featured" @checked(old('featured', $product->featured ?? false))>
-                    <label class="form-check-label" for="featured">Show in Featured Products</label>
+                    <label class="form-check-label" for="featured">Show in Best Sellers</label>
+                    <div class="form-text">Enable this for any product you want to show in the homepage Best Sellers section.</div>
                 </div>
             </div>
         </div>
@@ -190,6 +191,7 @@
                 <div class="mb-3">
                     <label class="form-label">Main Product Image</label>
                     <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                    <small class="text-muted d-block mt-1">Optional card/listing image. If blank, the first product detail photo can be used on the frontend.</small>
                     @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     @if(isset($product) && $product->image)
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="mt-3 rounded border" style="max-width:100%;max-height:160px;object-fit:contain;">
@@ -197,11 +199,21 @@
                 </div>
 
                 <div class="mb-0">
-                    <label class="form-label">Upload Multiple Product Images</label>
-                    <input type="file" name="gallery[]" id="galleryImages" class="form-control @error('gallery') is-invalid @enderror" accept="image/*" multiple>
-                    <small class="text-muted d-block mt-1">Select multiple product images. These appear as thumbnails on the product detail page. The app will not add an image-size limit.</small>
+                    <label class="form-label">Product Detail Photos <span class="text-danger">*</span></label>
+                    <input
+                        type="file"
+                        name="gallery[]"
+                        id="galleryImages"
+                        class="form-control @error('gallery') is-invalid @enderror"
+                        accept="image/*"
+                        multiple
+                        data-existing-gallery-count="{{ isset($product) ? $product->images->count() : 0 }}"
+                        data-max-gallery="7"
+                    >
+                    <small class="text-muted d-block mt-1">Add minimum 1 and maximum 7 photos. These photos show as thumbnails on the frontend product detail page.</small>
                     @error('gallery')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     @error('gallery.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    <div id="galleryLimitMessage" class="small mt-2 text-muted"></div>
                     <div id="galleryPreview" class="d-flex flex-wrap gap-2 mt-3"></div>
 
                     @if(isset($product) && $product->images->count())
@@ -225,8 +237,31 @@
 document.addEventListener('DOMContentLoaded', function () {
     const galleryInput = document.getElementById('galleryImages');
     const galleryPreview = document.getElementById('galleryPreview');
+    const galleryLimitMessage = document.getElementById('galleryLimitMessage');
     const packageRows = document.getElementById('packageRows');
     const addPackageRow = document.getElementById('addPackageRow');
+    const maxGalleryPhotos = Number(galleryInput?.dataset.maxGallery || 7);
+    const initialExistingGalleryCount = Number(galleryInput?.dataset.existingGalleryCount || 0);
+    const selectedGalleryFiles = [];
+
+    function selectedRemoveGalleryCount() {
+        return document.querySelectorAll('input[name="remove_gallery[]"]:checked').length;
+    }
+
+    function currentExistingGalleryCount() {
+        return Math.max(initialExistingGalleryCount - selectedRemoveGalleryCount(), 0);
+    }
+
+    function updateGalleryLimitMessage(selectedFilesCount = 0) {
+        if (!galleryLimitMessage) return;
+
+        const currentCount = currentExistingGalleryCount();
+        const totalCount = currentCount + selectedFilesCount;
+        const remainingCount = Math.max(maxGalleryPhotos - currentCount, 0);
+
+        galleryLimitMessage.textContent = `${totalCount}/${maxGalleryPhotos} product detail photos selected. You can upload ${remainingCount} more photo${remainingCount === 1 ? '' : 's'}.`;
+        galleryLimitMessage.className = `small mt-2 ${totalCount > maxGalleryPhotos || totalCount < 1 ? 'text-danger' : 'text-muted'}`;
+    }
 
     function packageRowTemplate(index) {
         return `
@@ -296,14 +331,26 @@ document.addEventListener('DOMContentLoaded', function () {
         reindexPackageRows();
     });
 
-    function renderGalleryPreview(files) {
+    function galleryFileKey(file) {
+        return `${file.name}-${file.size}-${file.lastModified}`;
+    }
+
+    function syncGalleryInputFiles() {
+        if (!galleryInput || typeof DataTransfer === 'undefined') return;
+
+        const transfer = new DataTransfer();
+        selectedGalleryFiles.forEach((file) => transfer.items.add(file));
+        galleryInput.files = transfer.files;
+    }
+
+    function renderGalleryPreview() {
         if (!galleryPreview) return;
 
         galleryPreview.innerHTML = '';
 
-        Array.from(files).forEach((file) => {
+        selectedGalleryFiles.forEach((file, index) => {
             const card = document.createElement('div');
-            card.className = 'border rounded p-2 bg-white';
+            card.className = 'border rounded p-2 bg-white position-relative';
             card.style.width = '110px';
 
             const img = document.createElement('img');
@@ -321,15 +368,62 @@ document.addEventListener('DOMContentLoaded', function () {
             name.title = file.name;
             name.textContent = file.name;
 
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-sm btn-outline-danger w-100 mt-2 remove-selected-gallery';
+            removeButton.dataset.index = String(index);
+            removeButton.textContent = 'Remove';
+
             card.appendChild(img);
             card.appendChild(name);
+            card.appendChild(removeButton);
             galleryPreview.appendChild(card);
         });
     }
 
     galleryInput?.addEventListener('change', function () {
         const files = Array.from(this.files || []);
-        renderGalleryPreview(files);
+        const remainingCount = Math.max(maxGalleryPhotos - currentExistingGalleryCount(), 0);
+        const currentKeys = new Set(selectedGalleryFiles.map(galleryFileKey));
+        const newFiles = files.filter((file) => ! currentKeys.has(galleryFileKey(file)));
+        const nextFiles = [...selectedGalleryFiles, ...newFiles];
+
+        if (nextFiles.length > remainingCount) {
+            alert(`You can keep a maximum of ${maxGalleryPhotos} product detail photos. You can upload only ${remainingCount} more photo${remainingCount === 1 ? '' : 's'} right now.`);
+            syncGalleryInputFiles();
+            return;
+        }
+
+        selectedGalleryFiles.splice(0, selectedGalleryFiles.length, ...nextFiles);
+        syncGalleryInputFiles();
+        renderGalleryPreview();
+        updateGalleryLimitMessage(selectedGalleryFiles.length);
     });
+
+    galleryPreview?.addEventListener('click', function (event) {
+        const button = event.target.closest('.remove-selected-gallery');
+        if (!button) return;
+
+        selectedGalleryFiles.splice(Number(button.dataset.index), 1);
+        syncGalleryInputFiles();
+        renderGalleryPreview();
+        updateGalleryLimitMessage(selectedGalleryFiles.length);
+    });
+
+    document.addEventListener('change', function (event) {
+        if (!event.target.matches('input[name="remove_gallery[]"]')) return;
+
+        const remainingCount = Math.max(maxGalleryPhotos - currentExistingGalleryCount(), 0);
+
+        if (selectedGalleryFiles.length > remainingCount) {
+            selectedGalleryFiles.splice(remainingCount);
+            syncGalleryInputFiles();
+            renderGalleryPreview();
+        }
+
+        updateGalleryLimitMessage(selectedGalleryFiles.length);
+    });
+
+    updateGalleryLimitMessage(selectedGalleryFiles.length);
 });
 </script>

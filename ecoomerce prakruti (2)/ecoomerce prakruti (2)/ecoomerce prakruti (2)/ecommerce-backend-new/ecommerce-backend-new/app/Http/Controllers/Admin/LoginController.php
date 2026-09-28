@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 
@@ -52,7 +54,7 @@ class LoginController extends Controller
         }
 
         // Check email and password.
-        if (!Auth::attempt($validated)) {
+        if (!Auth::attempt($validated, $request->boolean('remember'))) {
             RateLimiter::hit($throttleKey, 60);
 
             return redirect()
@@ -82,6 +84,49 @@ class LoginController extends Controller
             ->back()
             ->withInput($request->only('email'))
             ->with('error', 'Unauthorized access');
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('admin.auth.forgot-password');
+    }
+
+    public function sendResetLink(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'string', 'max:20'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $email = strtolower(trim((string) $validated['email']));
+        $user = User::where('email', $email)->first();
+        $configuredPhone = $this->normalizePhone(Setting::get('company_phone', ''));
+        $submittedPhone = $this->normalizePhone($validated['phone']);
+
+        if ($configuredPhone === '') {
+            return back()
+                ->withInput($request->only('email', 'phone'))
+                ->withErrors(['phone' => 'Admin forgot password phone is not configured in Store Settings.']);
+        }
+
+        if (! $user || ! $user->isAdmin() || $submittedPhone !== $configuredPhone) {
+            return back()
+                ->withInput($request->only('email', 'phone'))
+                ->withErrors(['email' => 'Admin email and phone number do not match.']);
+        }
+
+        $user->forceFill([
+            'password' => Hash::make($validated['password']),
+            'remember_token' => Str::random(60),
+        ])->save();
+
+        return redirect()->route('admin.login')->with('status', 'Password changed successfully. Please login with your new password.');
+    }
+
+    private function normalizePhone(?string $phone): string
+    {
+        return preg_replace('/\D+/', '', (string) $phone) ?? '';
     }
 
     /**

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import './BestSellers.css'
 import { useCart } from '../../context/CartContext'
+import { productsApi } from '../../api/products'
 
 import masoorDalImg from '../../assets/images/bestseller_masoor_dal.jpg'
 import girGheeImg from '../../assets/images/ghee.png'
@@ -66,9 +67,53 @@ export const BEST_SELLER_PRODUCTS = [
   }
 ]
 
+function normalizeBestSeller(product) {
+  const firstVariation = Array.isArray(product.variations) ? product.variations[0] : null
+  const price = Number(product.price || firstVariation?.price || 0)
+  const originalPrice = Number(product.originalPrice || product.regular_price || price)
+
+  return {
+    ...product,
+    id: product.id,
+    varId: firstVariation?.id || null,
+    displayName: product.displayName || product.name,
+    rating: Math.min(5, Math.max(1, Math.round(Number(product.rating || 5)))),
+    reviews: product.reviews || 0,
+    originalPrice: originalPrice > price ? originalPrice : null,
+    price,
+    image: product.image,
+    category: product.category || 'Organic'
+  }
+}
+
 const BestSellers = ({ onViewProduct, onViewAll }) => {
   const [addingId, setAddingId] = useState(null)
+  const [products, setProducts] = useState([])
   const { addToCart } = useCart()
+
+  useEffect(() => {
+    let mounted = true
+
+    productsApi.getProducts({ featured: true, per_page: 100 }).then((res) => {
+      if (!mounted) return
+      setProducts((res.data || []).map(normalizeBestSeller))
+    }).catch((error) => {
+      console.error(error)
+      if (mounted) setProducts(BEST_SELLER_PRODUCTS)
+    })
+
+    return () => {
+      mounted = false
+    }
+  }, [])
+
+  const marqueeSets = useMemo(() => (
+    products.length ? Array.from({ length: 4 }, () => products) : []
+  ), [products])
+
+  if (!products.length) {
+    return null
+  }
 
   return (
     <section className="best-sellers" id="bestsellers">
@@ -81,64 +126,77 @@ const BestSellers = ({ onViewProduct, onViewAll }) => {
             onClick={onViewAll}
           >
             <span>View All Products</span>
-            <span className="view-all-arrow">→</span>
+            <span className="view-all-arrow">&rarr;</span>
           </button>
         </div>
 
-        <div className="products-grid">
-          {BEST_SELLER_PRODUCTS.map((product) => (
-            <div
-              key={product.id}
-              className="product-card"
-              onClick={() => onViewProduct && onViewProduct(product.id)}
-            >
-              <div className="product-image-wrap">
-                <img
-                  src={product.image}
-                  alt={product.displayName}
-                  className="product-image"
-                  loading="lazy"
-                />
+        <div className="products-marquee is-scrolling">
+          <div className="products-track">
+            {marqueeSets.map((set, setIndex) => (
+              <div className="products-set" key={setIndex} aria-hidden={setIndex > 0}>
+                {set.map((product) => {
+                  const isDuplicate = setIndex > 0
+
+                  return (
+                    <div
+                      key={`${product.id}-${setIndex}`}
+                      className="product-card"
+                      onClick={() => onViewProduct && onViewProduct(product.id)}
+                    >
+                      <div className="product-image-wrap">
+                        <img
+                          src={product.image}
+                          alt={product.displayName}
+                          className="product-image"
+                          loading="lazy"
+                        />
+                      </div>
+
+                      <div className="product-info">
+                        <h3 className="product-name">{product.displayName}</h3>
+
+                        <div className="product-rating">
+                          <div className="stars">
+                            {[...Array(product.rating || 5)].map((_, i) => (
+                              <span key={i} className="star filled">&#9733;</span>
+                            ))}
+                          </div>
+                          <span className="review-count">({product.reviews})</span>
+                        </div>
+
+                        <div className="product-pricing">
+                          {product.originalPrice ? (
+                            <span className="original-price">&#8377;{product.originalPrice}</span>
+                          ) : null}
+                          <span className="current-price">&#8377;{product.price}</span>
+                        </div>
+
+                        <button
+                          className="add-to-cart-btn"
+                          aria-label={`Add ${product.displayName} to Cart`}
+                          disabled={addingId === product.id}
+                          tabIndex={isDuplicate ? -1 : undefined}
+                          onClick={async (event) => {
+                            event.stopPropagation()
+                            setAddingId(product.id)
+                            try {
+                              await addToCart(product.id, 1, product.varId || null)
+                            } catch (e) {
+                              console.error(e)
+                            } finally {
+                              setAddingId(null)
+                            }
+                          }}
+                        >
+                          {addingId === product.id ? 'Adding...' : '+ Add to Cart'}
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
-
-              <div className="product-info">
-                <h3 className="product-name">{product.displayName}</h3>
-
-                <div className="product-rating">
-                  <div className="stars">
-                    {[...Array(product.rating || 5)].map((_, i) => (
-                      <span key={i} className="star filled">★</span>
-                    ))}
-                  </div>
-                  <span className="review-count">({product.reviews})</span>
-                </div>
-
-                <div className="product-pricing">
-                  <span className="original-price">₹{product.originalPrice}</span>
-                  <span className="current-price">₹{product.price}</span>
-                </div>
-
-                <button
-                  className="add-to-cart-btn"
-                  aria-label={`Add ${product.displayName} to Cart`}
-                  disabled={addingId === product.id}
-                  onClick={async (event) => {
-                    event.stopPropagation()
-                    setAddingId(product.id)
-                    try {
-                      await addToCart(product.id, 1)
-                    } catch (e) {
-                      console.error(e)
-                    } finally {
-                      setAddingId(null)
-                    }
-                  }}
-                >
-                  {addingId === product.id ? 'Adding...' : '+ Add to Cart'}
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

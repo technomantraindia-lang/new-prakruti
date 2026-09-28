@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { apiClient } from '../../api/client';
 import './FarmGallery.css';
 
 // Import assets
@@ -18,7 +19,7 @@ import gheeVideo1 from '../../assets/videos_ghee/ghee_video_1.mp4';
 import gheeVideo2 from '../../assets/videos_ghee/ghee_video_2.mp4';
 import gheeVideo3 from '../../assets/videos_ghee/ghee_video_3.mp4';
 
-const galleryItems = [
+const fallbackGalleryItems = [
   {
     id: 1,
     category: 'fields',
@@ -97,30 +98,188 @@ const galleryItems = [
 ];
 
 const FarmGallery = ({ onShopClick }) => {
+  const [galleryItems, setGalleryItems] = useState(fallbackGalleryItems);
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
+  useEffect(() => {
+    let mounted = true;
+
+    apiClient('/farm-gallery').then((res) => {
+      if (!mounted || !res.success || !Array.isArray(res.data) || res.data.length === 0) {
+        return;
+      }
+
+      setGalleryItems(res.data);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   const filteredItems = activeFilter === 'all'
     ? galleryItems
     : galleryItems.filter(item => item.category === activeFilter);
+  const extraGalleryCategories = galleryItems.reduce((categories, item) => {
+    const defaultCategories = ['fields', 'harvesting', 'processing'];
+
+    if (!item.category || defaultCategories.includes(item.category) || categories.some(category => category.slug === item.category)) {
+      return categories;
+    }
+
+    categories.push({
+      slug: item.category,
+      label: item.category_label || item.category.replace(/-/g, ' '),
+      count: galleryItems.filter(galleryItem => galleryItem.category === item.category).length,
+    });
+
+    return categories;
+  }, []);
 
   const handleOpenItem = (item) => {
     setSelectedItem(item);
     setActiveSlide(0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handlePrevSlide = (e) => {
-    e.stopPropagation();
+  const handlePrevSlide = () => {
     if (!selectedItem?.videos?.length) return;
     setActiveSlide((prev) => (prev === 0 ? selectedItem.videos.length - 1 : prev - 1));
   };
 
-  const handleNextSlide = (e) => {
-    e.stopPropagation();
+  const handleNextSlide = () => {
     if (!selectedItem?.videos?.length) return;
     setActiveSlide((prev) => (prev === selectedItem.videos.length - 1 ? 0 : prev + 1));
   };
+
+  if (selectedItem) {
+    const hasVideos = selectedItem.videos && selectedItem.videos.length > 0;
+    const activeVideo = hasVideos ? selectedItem.videos[activeSlide] : null;
+
+    return (
+      <div className="farm-gallery farm-gallery-detail-page">
+        <section className="gallery-detail-hero">
+          <div className="container">
+            <button
+              type="button"
+              className="gallery-detail-back"
+              onClick={() => {
+                setSelectedItem(null);
+                setActiveSlide(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              Back to Farm Gallery
+            </button>
+
+            <div className="gallery-detail-hero-grid">
+              <div className="gallery-detail-copy">
+                <div className="gallery-detail-meta-row">
+                  <span className="gallery-detail-tag">{selectedItem.tag}</span>
+                  <span className="gallery-detail-location">{selectedItem.location}</span>
+                </div>
+                <h1 className="gallery-detail-title">{selectedItem.title}</h1>
+                <p className="gallery-detail-desc">{selectedItem.description}</p>
+              </div>
+
+              <div className="gallery-detail-visual">
+                <img src={selectedItem.image} alt={selectedItem.title} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="gallery-detail-main">
+          <div className="container">
+            <div className="gallery-detail-content-grid">
+              <div className="gallery-detail-story">
+                <span className="section-eyebrow">PROCESS STORY</span>
+                <h2 className="gallery-detail-section-title">Operation Specifications</h2>
+                <p className="gallery-detail-details">{selectedItem.details}</p>
+
+                <div className="gallery-detail-checklist">
+                  <div className="meta-check">
+                    <span className="check-icon">✓</span>
+                    <span>Organic &amp; Pesticide Free</span>
+                  </div>
+                  <div className="meta-check">
+                    <span className="check-icon">✓</span>
+                    <span>Direct-Trade Cooperative Sourced</span>
+                  </div>
+                  <div className="meta-check">
+                    <span className="check-icon">✓</span>
+                    <span>NABL Accredited Lab Tested</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="lightbox-shop-btn"
+                  onClick={() => {
+                    setSelectedItem(null);
+                    if (onShopClick) onShopClick();
+                  }}
+                >
+                  Shop Related Organic Products
+                </button>
+              </div>
+
+              <div className="gallery-detail-media-panel">
+                {hasVideos ? (
+                  <div className="gallery-detail-video-block">
+                    <video
+                      key={activeVideo.src}
+                      className="gallery-detail-video"
+                      src={activeVideo.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      controls
+                    />
+
+                    <div className="gallery-detail-video-footer">
+                      <div>
+                        <span className="slider-badge-pill">Video {activeSlide + 1} of {selectedItem.videos.length}</span>
+                        {activeVideo.title && <h3>{activeVideo.title}</h3>}
+                      </div>
+                      {selectedItem.videos.length > 1 && (
+                        <div className="gallery-detail-video-actions">
+                          <button type="button" onClick={handlePrevSlide} aria-label="Previous video">Prev</button>
+                          <button type="button" onClick={handleNextSlide} aria-label="Next video">Next</button>
+                        </div>
+                      )}
+                    </div>
+
+                    {selectedItem.videos.length > 1 && (
+                      <div className="gallery-detail-video-list">
+                        {selectedItem.videos.map((video, idx) => (
+                          <button
+                            key={`${video.src}-${idx}`}
+                            type="button"
+                            className={idx === activeSlide ? 'active' : ''}
+                            onClick={() => setActiveSlide(idx)}
+                          >
+                            {video.title || `Video ${idx + 1}`}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="gallery-detail-image-card">
+                    <img src={selectedItem.image} alt={selectedItem.title} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="farm-gallery">
@@ -194,6 +353,20 @@ const FarmGallery = ({ onShopClick }) => {
                 🏺 Cold-Press, Ghee &amp; Packaging
               </button>
             </div>
+            {extraGalleryCategories.length > 0 && (
+              <div className="gallery-filters-bar gallery-extra-filters-bar">
+                {extraGalleryCategories.map((category) => (
+                  <button
+                    key={category.slug}
+                    type="button"
+                    className={`gallery-filter-btn ${activeFilter === category.slug ? 'active' : ''}`}
+                    onClick={() => setActiveFilter(category.slug)}
+                  >
+                    {category.label} ({category.count})
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Gallery Cards Grid */}

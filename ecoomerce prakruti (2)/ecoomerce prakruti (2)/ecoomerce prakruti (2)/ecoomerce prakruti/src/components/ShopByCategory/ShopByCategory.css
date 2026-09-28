@@ -140,8 +140,19 @@
 
 /* ---- Responsive Styles ---- */
 @media (max-width: 1200px) {
+  .shop-by-category {
+    padding: 64px 0 60px;
+  }
   .category-grid {
     gap: 14px 12px;
+  }
+
+  .category-card {
+    padding: 4px 4px 9px;
+  }
+
+  .category-image-wrap {
+    aspect-ratio: 1.5;
   }
 }
 
@@ -170,49 +181,73 @@
 
 @media (max-width: 768px) {
   .shop-by-category {
-    padding: 60px 0 50px;
+    padding: 46px 0 44px;
   }
+
+  .shop-by-category .section-header {
+    margin-bottom: 24px;
+  }
+
   .category-grid {
-    display: flex;
-    overflow-x: auto;
-    padding: 10px 4px 20px;
-    gap: 20px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 0;
   }
-  .category-grid::-webkit-scrollbar {
-    display: none;
-  }
+
   .category-card {
-    min-width: 195px;
-    flex: 0 0 auto;
-    scroll-snap-align: start;
+    min-width: 0;
+    width: 100%;
+    padding: 4px 4px 8px;
+    border-radius: 12px;
+    scroll-snap-align: unset;
+  }
+
+  .category-card,
+  .category-card:nth-child(n + 5) {
+    grid-column: auto;
+  }
+
+  .category-image-wrap {
+    aspect-ratio: 1.05;
+    border-radius: 10px;
+  }
+
+  .category-card-footer {
+    padding: 9px 7px 0;
+  }
+
+  .category-name {
+    font-size: 0.84rem;
+    line-height: 1.25;
+  }
+
+  .cat-arrow {
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
   .category-card {
-    min-width: 175px;
+    min-width: 0;
   }
   .category-name {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
 }
 
 @media (max-width: 400px) {
   .category-card {
-    min-width: 160px;
+    min-width: 0;
   }
   .category-name {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
   }
 }
 
 @media (max-width: 360px) {
   .category-card {
-    min-width: 150px;
+    min-width: 0;
   }
   .category-card-footer {
     padding: 10px 0 0;

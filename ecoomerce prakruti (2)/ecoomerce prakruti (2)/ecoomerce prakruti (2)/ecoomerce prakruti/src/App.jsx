@@ -38,6 +38,8 @@ function AppShell() {
   const [selectedProductId, setSelectedProductId] = useState(null)
   const [globalSearchQuery, setGlobalSearchQuery] = useState(null)
   const [currentUser, setCurrentUser] = useState(getStoredUser())
+  const [resetPasswordToken, setResetPasswordToken] = useState('')
+  const [resetPasswordEmail, setResetPasswordEmail] = useState('')
   const { itemCount, notice, refreshCart } = useCart()
 
   useEffect(() => {
@@ -67,6 +69,15 @@ function AppShell() {
         setCurrentPage('login');
       } else if (hash === '#register') {
         setCurrentPage('register');
+      } else if (hash === '#forgot-password') {
+        setCurrentPage('forgot-password');
+      } else if (hash.startsWith('#reset-password/')) {
+        const raw = hash.replace('#reset-password/', '');
+        const [tokenPart, queryPart = ''] = raw.split('?');
+        const params = new URLSearchParams(queryPart);
+        setResetPasswordToken(decodeURIComponent(tokenPart || ''));
+        setResetPasswordEmail(params.get('email') || '');
+        setCurrentPage('reset-password');
       } else if (hash === '#about') {
         setCurrentPage('about');
       } else if (hash === '#contact') {
@@ -169,7 +180,7 @@ function AppShell() {
         currentPage={currentPage}
         setCurrentPage={handleNavigate}
         onAccountClick={() => handleNavigate(currentUser ? 'account' : 'login')}
-        onCartClick={() => handleNavigate('cart')}
+        onCartClick={() => currentUser ? handleNavigate('cart') : handleNavigate('login')}
         cartCount={itemCount}
         currentUser={currentUser}
         onLogout={handleLogout}
@@ -242,11 +253,23 @@ function AppShell() {
         )}
 
         {currentPage === 'cart' && (
-          <CartPage 
-            onShopClick={() => handleNavigate('categories')}
-            currentUser={currentUser}
-            onLoginRequired={() => handleNavigate('login')}
-          />
+          currentUser ? (
+            <CartPage 
+              onShopClick={() => handleNavigate('categories')}
+              currentUser={currentUser}
+              onLoginRequired={() => handleNavigate('login')}
+            />
+          ) : (
+            <AuthPage
+              mode="login"
+              setMode={handleNavigate}
+              onSuccess={(user) => {
+                if (user) setCurrentUser(user);
+                refreshCart();
+                handleNavigate('cart');
+              }}
+            />
+          )
         )}
 
         {currentPage === 'account' && (
@@ -273,6 +296,8 @@ function AppShell() {
         {currentPage === 'family-pack' && (
           <FamilyPackPage 
             onGoToCart={() => handleNavigate('cart')}
+            currentUser={currentUser}
+            onLoginRequired={() => handleNavigate('login')}
           />
         )}
 
@@ -284,10 +309,12 @@ function AppShell() {
           <LegalPage type="terms" />
         )}
 
-        {(currentPage === 'login' || currentPage === 'register') && (
+        {(currentPage === 'login' || currentPage === 'register' || currentPage === 'forgot-password' || currentPage === 'reset-password') && (
           <AuthPage 
             mode={currentPage}
             setMode={handleNavigate}
+            resetToken={resetPasswordToken}
+            resetEmail={resetPasswordEmail}
             onSuccess={(user) => {
               if (user) setCurrentUser(user);
               refreshCart();

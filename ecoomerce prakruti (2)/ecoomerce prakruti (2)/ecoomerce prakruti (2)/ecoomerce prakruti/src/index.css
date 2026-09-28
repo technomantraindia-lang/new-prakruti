@@ -241,6 +241,35 @@ ul {
 }
 
 /* ===== RESPONSIVE OVERRIDES ===== */
+@media (min-width: 901px) and (max-width: 1199px) {
+  :root {
+    --container-max: 1040px;
+  }
+
+  .container {
+    padding: 0 28px;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    gap: 22px;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    width: 64px;
+  }
+
+  .section-subtitle {
+    max-width: 520px;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .container {
     padding: 0 20px;

@@ -49,7 +49,7 @@ export function normalizeProduct(product) {
   const images = [
     primaryImage,
     ...(Array.isArray(product.images) ? product.images : []),
-  ].filter(Boolean).filter((image, index, list) => list.indexOf(image) === index);
+  ].filter(Boolean).filter((image, index, list) => list.indexOf(image) === index).slice(0, 7);
 
   return {
     ...local,

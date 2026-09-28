@@ -2,14 +2,16 @@
 
 > Structural local index. Read current source before editing. Secrets are intentionally excluded.
 
-- Indexed source files: 138
-- Structural edges: 107
+- Indexed source files: 145
+- Structural edges: 106
 - Matched end-to-end flows: 0
-- Updated: 2026-09-22T11:18:59.096Z
+- Updated: 2026-09-28T06:22:29.022Z
 
 ## Routes
 - ROUTE GET /login -> LoginController@showLoginForm @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE POST /login -> LoginController@login @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE GET /forgot-password -> LoginController@showForgotPasswordForm @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
+- ROUTE POST /forgot-password -> LoginController@sendResetLink @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE GET /dashboard -> DashboardController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE GET /search -> \App\Http\Controllers\Admin\GlobalSearchController@search @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE POST /logout -> LoginController@logout @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
@@ -24,8 +26,6 @@
 - ROUTE PUT /products/{product}/variations/{variation} -> \App\Http\Controllers\Admin\ProductVariationController@update @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE DELETE /products/{product}/variations/{variation} -> \App\Http\Controllers\Admin\ProductVariationController@destroy @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE GET /orders -> OrderController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
-- ROUTE POST /orders/bulk-action -> OrderController@bulkAction @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
-- ROUTE GET /orders/{order}/invoice -> OrderController@invoice @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
 - ROUTE GET /api/products -> ProductApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE GET /api/products/{product}/reviews -> ReviewApiController@productReviews @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE POST /api/products/{product}/reviews -> ReviewApiController@storeProductReview @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
@@ -35,15 +35,15 @@
 - ROUTE GET /api/categories/{slug} -> CategoryApiController@show @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE GET /api/brands -> CatalogMetaApiController@brands @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE GET /api/attributes -> CatalogMetaApiController@attributes @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/farm-gallery -> FarmGalleryApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE GET /api/shipping-methods -> ShippingTaxApiController@shippingMethods @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE GET /api/taxes -> ShippingTaxApiController@taxes @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
-- ROUTE GET /api/cart -> CartApiController@index @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
-- ROUTE POST /api/cart/items -> CartApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
-- ROUTE PUT /api/cart/items/{id} -> CartApiController@update @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
-- ROUTE DELETE /api/cart/items/{id} -> CartApiController@destroy @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
-- ROUTE DELETE /api/cart -> CartApiController@clear @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE POST /api/inquiries -> InquiryApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ROUTE POST /api/consultation-requests -> ConsultationRequestApiController@store @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE GET /api/testimonials -> ReviewApiController@testimonials @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/testimonials -> ReviewApiController@storeTestimonial @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/register -> CustomerAuthApiController@register @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
+- ROUTE POST /api/login -> CustomerAuthApiController@login @ ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 
 ## Dependency edges
 - IMPORT ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx -> ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.css
@@ -104,14 +104,14 @@
 - SCHEMA ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/database/migrations/2026_09_22_000001_create_frontend_reviews_tables.php: table product_reviews
 
 ## Symbols
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Admin/ReviewController.php: ReviewController, index, updateProductReview, updateTestimonial
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Admin/ReviewController.php: ReviewController, index, updateProductReview, updateTestimonial, markMenuSeen
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Api/V1/ReviewApiController.php: ReviewApiController, testimonials, storeTestimonial, productReviews, storeProductReview, resolveProduct, serializeTestimonial, serializeProductReview
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Http/Controllers/Frontend/PageController.php: PageController, show
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/Page.php: Page
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/app/Models/ProductReview.php: ProductReview, product, user, scopeActive
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/database/migrations/2026_09_22_000001_create_frontend_reviews_tables.php: extends, up, down
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/layouts/app.blade.php: setSidebarTheme
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/_form.blade.php: packageRowTemplate, reindexPackageRows, renderGalleryPreview
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/layouts/app.blade.php: setMobileSidebar, setSidebarTheme
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/products/_form.blade.php: selectedRemoveGalleryCount, currentExistingGalleryCount, updateGalleryLimitMessage, packageRowTemplate, reindexPackageRows, galleryFileKey, syncGalleryInputFiles, renderGalleryPreview
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/settings/index.blade.php: bindRemoveButtons
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/tests/Feature/WebhookRouteTest.php: WebhookRouteTest, test_single_woocommerce_webhook_route_exists
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.jsx: AboutPage, toggleFaq
@@ -121,12 +121,12 @@
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthModal/AuthModal.jsx: AuthModal
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AuthPage/AuthPage.jsx: AuthPage, handleSubmit
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Benefits/Benefits.jsx: Benefits
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx: BestSellers
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx: CartPage, handleQuantityChange, handleRemoveItem, handleApplyCoupon, handleCarouselScroll, handleSubscribe
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/BestSellers/BestSellers.jsx: normalizeBestSeller, BestSellers
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CartPage/CartPage.jsx: CartPage, handleQuantityChange, handleRemoveItem, handleApplyCoupon, handleAddressSelect, buildShippingAddress, handleCarouselScroll, handleSubscribe
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/CategoryPage/CategoryPage.jsx: formatPrice, getOriginalPrice, CategoryPage, handleResetFilters
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ContactPage/ContactPage.jsx: ContactPage, handleInputChange, handleFormSubmit, handleSubscribe
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/EducationPage/EducationPage.jsx: parseFiniteNumber, feetAndInchesToMeters, centimetresToMeters, calculateBmiValue, roundBmiForDisplay, formatHeightCm, convertFeetInchesToCm, convertCmToFeetInches, classifyAdultBmi, EducationPage
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx: ageGroup, memberFactor, nutritionFor, findProduct, buildRecommendations, hydrateRecommendations, summarizeMembers, formatPrice, FamilyPackPage, updateMember
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FamilyPackPage/FamilyPackPage.jsx: ageGroup, memberFactor, nutritionFor, findProduct, resolvePackage, formatPackSummary, buildRecommendations, hydrateRecommendations, summarizeMembers, formatPrice
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FaqSection/FaqSection.jsx: FaqSection, toggleFaq
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/FarmGallery/FarmGallery.jsx: FarmGallery, handleOpenItem, handlePrevSlide, handleNextSlide
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx: Footer
@@ -136,7 +136,5 @@
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx: LoadingScreen
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx: Navbar, handleSearchSubmit
 - SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx: PrakrutiPromise
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx: formatPrice, getPackMultiplier, renderMultilineText, ProductDetailPage, handleAddToCart, handleReviewSubmit
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.jsx: PromoBanner
-- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.jsx: ShopByCategory
-- SYMBOL ecoomer
+- SYMBOL ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx: formatPrice, getPackMultiplier, renderMultilineText, ProductDetailPage, handleAddToCart, handleBuyNow, handleReviewSubmit
+- SYMBOL ecoomerce prakruti (2)/ecoomerce p

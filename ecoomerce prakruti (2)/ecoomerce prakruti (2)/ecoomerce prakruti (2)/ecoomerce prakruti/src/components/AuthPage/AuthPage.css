@@ -289,9 +289,13 @@
 }
 
 .forgot-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
   font-size: 0.72rem;
   font-weight: 700;
   color: var(--color-accent);
+  cursor: pointer;
 }
 
 .forgot-link:hover {
@@ -333,12 +337,21 @@
 
 .password-toggle {
   position: absolute;
-  right: 14px;
-  font-size: 0.9rem;
+  right: 10px;
+  border: 0;
+  background: rgba(45, 90, 39, 0.08);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
   color: var(--color-text-light);
   cursor: pointer;
-  padding: 4px;
+  padding: 6px 9px;
   line-height: 1;
+}
+
+.password-toggle:hover {
+  background: rgba(45, 90, 39, 0.14);
+  color: var(--color-primary);
 }
 
 /* Terms Checkbox */

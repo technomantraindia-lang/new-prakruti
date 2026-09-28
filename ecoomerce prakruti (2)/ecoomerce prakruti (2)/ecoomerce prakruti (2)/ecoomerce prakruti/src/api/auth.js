@@ -60,4 +60,23 @@ export const authApi = {
     }
     return res;
   },
+
+  forgotPassword: async (email) => {
+    return await apiClient('/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+  },
+
+  resetPassword: async ({ email, token, password, password_confirmation }) => {
+    return await apiClient('/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        token,
+        password,
+        password_confirmation,
+      }),
+    });
+  },
 };

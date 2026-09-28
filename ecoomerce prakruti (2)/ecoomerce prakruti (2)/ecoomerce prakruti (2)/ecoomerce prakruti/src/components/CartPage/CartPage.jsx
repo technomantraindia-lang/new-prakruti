@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './CartPage.css';
 import { api } from '../../services/api';
+import { accountApi } from '../../api/account';
 import { productsApi } from '../../api/products';
 import { useCart } from '../../context/CartContext';
 import packgringImg from '../../assets/images/new packing .png';
@@ -34,10 +35,16 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
   const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
   const [orderConfirmation, setOrderConfirmation] = useState(null);
   const [checkoutError, setCheckoutError] = useState('');
+  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [selectedAddressId, setSelectedAddressId] = useState('new');
+  const [saveAddress, setSaveAddress] = useState(true);
   const [shipping, setShipping] = useState({
     name: '',
     phone: '',
     address: '',
+    city: '',
+    state: '',
+    pincode: '',
   });
 
   useEffect(() => {
@@ -61,6 +68,41 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
     return () => { mounted = false; };
   }, []);
 
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const name = currentUser.name || '';
+    const phone = currentUser.phone || '';
+    setShipping((prev) => ({
+      ...prev,
+      name: prev.name || name,
+      phone: prev.phone || phone,
+    }));
+
+    let mounted = true;
+    accountApi.getAddresses().then((res) => {
+      if (!mounted || !res.success) return;
+      const addresses = Array.isArray(res.data) ? res.data : [];
+      setSavedAddresses(addresses);
+      const defaultAddress = addresses.find((address) => address.is_default) || addresses[0];
+      if (defaultAddress) {
+        setSelectedAddressId(String(defaultAddress.id));
+        setShipping({
+          name: `${defaultAddress.first_name || name || ''} ${defaultAddress.last_name || ''}`.trim(),
+          phone: defaultAddress.phone || phone || '',
+          address: [defaultAddress.address_line_1, defaultAddress.address_line_2].filter(Boolean).join(', '),
+          city: defaultAddress.city || '',
+          state: defaultAddress.state || '',
+          pincode: defaultAddress.pincode || '',
+        });
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, [currentUser]);
+
   const handleQuantityChange = (id, delta) => {
     const item = cartItems.find((entry) => entry.id === id);
     if (!item) return;
@@ -75,6 +117,42 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
     e.preventDefault();
     setCouponMessage('Coupons are no longer available.');
   };
+
+  const handleAddressSelect = (value) => {
+    setSelectedAddressId(value);
+    if (value === 'new') {
+      setShipping((prev) => ({
+        ...prev,
+        name: currentUser?.name || prev.name || '',
+        phone: currentUser?.phone || prev.phone || '',
+        address: '',
+        city: '',
+        state: '',
+        pincode: '',
+      }));
+      setSaveAddress(true);
+      return;
+    }
+
+    const selected = savedAddresses.find((address) => String(address.id) === String(value));
+    if (!selected) return;
+
+    setShipping({
+      name: `${selected.first_name || currentUser?.name || ''} ${selected.last_name || ''}`.trim(),
+      phone: selected.phone || currentUser?.phone || '',
+      address: [selected.address_line_1, selected.address_line_2].filter(Boolean).join(', '),
+      city: selected.city || '',
+      state: selected.state || '',
+      pincode: selected.pincode || '',
+    });
+    setSaveAddress(false);
+  };
+
+  const buildShippingAddress = () => (
+    [shipping.name, shipping.phone, shipping.address, shipping.city, shipping.state, shipping.pincode]
+      .filter(Boolean)
+      .join(', ')
+  );
 
 
   // Carousel slider navigations
@@ -340,6 +418,24 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
 
                 <div className="checkout-address-box">
                   <span className="coupon-small-title">Delivery details</span>
+                  {savedAddresses.length > 0 && (
+                    <div className="saved-address-picker">
+                      <label htmlFor="savedAddress">Select saved address</label>
+                      <select
+                        id="savedAddress"
+                        value={selectedAddressId}
+                        onChange={(e) => handleAddressSelect(e.target.value)}
+                      >
+                        {savedAddresses.map((address) => (
+                          <option key={address.id} value={address.id}>
+                            {[address.address_line_1, address.city, address.state, address.pincode].filter(Boolean).join(', ')}
+                            {address.is_default ? ' (Default)' : ''}
+                          </option>
+                        ))}
+                        <option value="new">+ Add new address</option>
+                      </select>
+                    </div>
+                  )}
                   <input
                     type="text"
                     placeholder="Full name"
@@ -358,6 +454,36 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
                     value={shipping.address}
                     onChange={(e) => setShipping((prev) => ({ ...prev, address: e.target.value }))}
                   />
+                  <div className="checkout-address-grid">
+                    <input
+                      type="text"
+                      placeholder="City"
+                      value={shipping.city}
+                      onChange={(e) => setShipping((prev) => ({ ...prev, city: e.target.value }))}
+                    />
+                    <input
+                      type="text"
+                      placeholder="State"
+                      value={shipping.state}
+                      onChange={(e) => setShipping((prev) => ({ ...prev, state: e.target.value }))}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Pincode"
+                    value={shipping.pincode}
+                    onChange={(e) => setShipping((prev) => ({ ...prev, pincode: e.target.value }))}
+                  />
+                  {selectedAddressId === 'new' && (
+                    <label className="save-address-check">
+                      <input
+                        type="checkbox"
+                        checked={saveAddress}
+                        onChange={(e) => setSaveAddress(e.target.checked)}
+                      />
+                      Save this address for next time
+                    </label>
+                  )}
                 </div>
 
                 {checkoutError && <p className="checkout-error-text">{checkoutError}</p>}
@@ -374,11 +500,39 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
                       if (onLoginRequired) onLoginRequired();
                       return;
                     }
-                    if (!shipping.name || !shipping.phone || !shipping.address) {
-                      setCheckoutError('Please add your name, phone, and shipping address.');
+                    if (!shipping.name || !shipping.phone || !shipping.address || !shipping.city || !shipping.state) {
+                      setCheckoutError('Please add your name, phone, address, city, and state.');
                       return;
                     }
                     setIsSubmittingOrder(true);
+                    let finalShippingAddress = buildShippingAddress();
+                    if (selectedAddressId === 'new' && saveAddress) {
+                      const nameParts = String(shipping.name || '').trim().split(/\s+/);
+                      const firstName = nameParts.shift() || currentUser?.name || '';
+                      const lastName = nameParts.join(' ');
+                      const addressRes = await accountApi.addAddress({
+                        type: 'shipping',
+                        first_name: firstName,
+                        last_name: lastName,
+                        phone: shipping.phone,
+                        address_line_1: shipping.address,
+                        city: shipping.city,
+                        state: shipping.state,
+                        pincode: shipping.pincode,
+                        country: 'India',
+                        is_default: savedAddresses.length === 0,
+                      });
+
+                      if (addressRes.success && addressRes.data) {
+                        setSavedAddresses((current) => [addressRes.data, ...current]);
+                        setSelectedAddressId(String(addressRes.data.id));
+                      } else {
+                        setIsSubmittingOrder(false);
+                        setCheckoutError(addressRes.message || 'Could not save this address. Please check the details.');
+                        return;
+                      }
+                    }
+
                     const payload = {
                       items: cartItems.map(item => ({
                         product_id: item.product_id || item.id,
@@ -387,8 +541,8 @@ const CartPage = ({ onShopClick, currentUser, onLoginRequired }) => {
                       })),
                       order_type: localStorage.getItem('prakruti_pending_order_type') === 'family_pack' ? 'family_pack' : 'standard',
                       payment_method: 'cod',
-                      shipping_address: `${shipping.name}, ${shipping.phone}, ${shipping.address}`,
-                      billing_address: `${shipping.name}, ${shipping.phone}, ${shipping.address}`,
+                      shipping_address: finalShippingAddress,
+                      billing_address: finalShippingAddress,
                       coupon_code: couponApplied ? couponCode : undefined,
                     };
                     const res = await api.createOrder(payload);

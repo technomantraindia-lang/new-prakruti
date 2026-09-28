@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './FamilyPackPage.css';
 import { productsApi } from '../../api/products';
-import { familyPacksApi, getLocalFamilyPack } from '../../api/familyPacks';
+import { familyPacksApi } from '../../api/familyPacks';
 import { useCart } from '../../context/CartContext';
-import familyPackImg from '../../assets/images/family pack.png';
+import familyPackImg from '../../assets/images/food b ox .png';
 import packgringImg from '../../assets/images/new packing .png';
 
 const defaultMembers = [
@@ -57,6 +57,28 @@ function findProduct(products, keywords, usedIds) {
   return products.find((product) => !usedIds.has(product.id)) || null;
 }
 
+function resolvePackage(product, preferredVarId = null) {
+  const variations = Array.isArray(product?.variations) ? product.variations : [];
+  const selected = variations.find((variation) => String(variation.id) === String(preferredVarId)) ||
+    variations.find((variation) => Number(variation.available_stock ?? 0) > 0) ||
+    variations[0] ||
+    null;
+  const label = selected?.label || selected?.package_size || selected?.attributes?.Weight || product?.weight || '1 pack';
+  const price = Number(selected?.sale_price ?? selected?.price ?? product?.price ?? 0);
+
+  return {
+    var_id: selected?.id || null,
+    package_size: String(label || '1 pack'),
+    pack_weight: selected?.weight ?? null,
+    price,
+  };
+}
+
+function formatPackSummary(item) {
+  const packageSize = item.package_size || item.package || item.weight || 'pack';
+  return `${item.qty} pack${Number(item.qty) > 1 ? 's' : ''} × ${packageSize}`;
+}
+
 function buildRecommendations(products, members) {
   const adultUnits = members.reduce((sum, member) => sum + memberFactor(member.age), 0);
   const usedIds = new Set();
@@ -65,15 +87,19 @@ function buildRecommendations(products, members) {
     const product = findProduct(products, entry.keywords, usedIds);
     if (product) usedIds.add(product.id);
     const qty = Math.max(1, Math.ceil(entry.baseQty * Math.max(adultUnits, 1)));
+    const packageInfo = resolvePackage(product);
 
     return {
       key: entry.key,
       label: entry.label,
       benefit: entry.benefit,
       product_id: product?.id || null,
+      var_id: packageInfo.var_id,
       name: product?.name || entry.label,
       image: product?.image || packgringImg,
-      price: Number(product?.price || 0),
+      price: packageInfo.price,
+      package_size: packageInfo.package_size,
+      pack_weight: packageInfo.pack_weight,
       qty,
     };
   }).filter((item) => item.product_id);
@@ -82,14 +108,18 @@ function buildRecommendations(products, members) {
 function hydrateRecommendations(products, items = []) {
   return items.map((item) => {
     const product = products.find((entry) => entry.id === item.product_id);
+    const packageInfo = resolvePackage(product, item.var_id);
     return {
       ...item,
       key: item.key || `saved-${item.product_id}`,
       label: item.label || 'Monthly Product',
       benefit: item.benefit || product?.category || 'Monthly essential staple',
+      var_id: item.var_id || packageInfo.var_id,
       name: item.name || product?.name || 'Product',
       image: item.image || product?.image || packgringImg,
-      price: Number(item.price ?? product?.price ?? 0),
+      price: Number(item.price ?? packageInfo.price ?? product?.price ?? 0),
+      package_size: item.package_size || packageInfo.package_size,
+      pack_weight: item.pack_weight ?? packageInfo.pack_weight,
       qty: Math.max(1, Number(item.qty || 1)),
     };
   }).filter((item) => item.product_id);
@@ -107,13 +137,14 @@ function summarizeMembers(members) {
 
 const formatPrice = (value) => `₹${Number(value || 0).toFixed(0)}`;
 
-const FamilyPackPage = ({ onGoToCart }) => {
+const FamilyPackPage = ({ onGoToCart, currentUser, onLoginRequired }) => {
   const { addToCart, flash } = useCart();
   const [products, setProducts] = useState([]);
   const [members, setMembers] = useState(defaultMembers);
   const [recommendations, setRecommendations] = useState([]);
   const [savedMessage, setSavedMessage] = useState('');
   const [addingPack, setAddingPack] = useState(false);
+  const [savedPack, setSavedPack] = useState(null);
   const [extraSearch, setExtraSearch] = useState('');
   const [userChangedMembers, setUserChangedMembers] = useState(false);
 
@@ -124,16 +155,18 @@ const FamilyPackPage = ({ onGoToCart }) => {
       const loaded = res.data || [];
       setProducts(loaded);
 
-      const latest = await familyPacksApi.getLatest();
+      const latest = currentUser ? await familyPacksApi.getLatest() : { success: true, data: null };
       if (!mounted) return;
 
-      const saved = latest.success && latest.data ? latest.data : getLocalFamilyPack();
+      const saved = currentUser && latest.success && latest.data ? latest.data : null;
       if (saved?.profile?.members?.length) {
+        setSavedPack(saved);
         setMembers(saved.profile.members);
         if (Array.isArray(saved.recommendations) && saved.recommendations.length) {
           setRecommendations(hydrateRecommendations(loaded, saved.recommendations));
         }
       } else {
+        setSavedPack(null);
         setRecommendations(buildRecommendations(loaded, defaultMembers));
       }
     });
@@ -141,7 +174,7 @@ const FamilyPackPage = ({ onGoToCart }) => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     if (!products.length || !userChangedMembers) return;
@@ -219,6 +252,7 @@ const FamilyPackPage = ({ onGoToCart }) => {
 
   const addExtraProduct = (product) => {
     if (recommendations.some((item) => item.product_id === product.id)) return;
+    const packageInfo = resolvePackage(product);
     setRecommendations((current) => [
       ...current,
       {
@@ -226,15 +260,27 @@ const FamilyPackPage = ({ onGoToCart }) => {
         label: product.category || 'Pantry Extra',
         benefit: 'Added by customer',
         product_id: product.id,
+        var_id: packageInfo.var_id,
         name: product.name,
         image: product.image || packgringImg,
-        price: Number(product.price || 0),
+        price: packageInfo.price,
+        package_size: packageInfo.package_size,
+        pack_weight: packageInfo.pack_weight,
         qty: 1,
       },
     ]);
   };
 
   const savePack = async () => {
+    if (!currentUser) {
+      setSavedMessage('Please login or register to save your family pack.');
+      setTimeout(() => {
+        setSavedMessage('');
+        if (onLoginRequired) onLoginRequired();
+      }, 900);
+      return null;
+    }
+
     const payload = {
       profile: {
         members,
@@ -247,18 +293,98 @@ const FamilyPackPage = ({ onGoToCart }) => {
     };
 
     const res = await familyPacksApi.save(payload);
+    if (!res.success) {
+      setSavedMessage(res.message || 'Please login or register to save your family pack.');
+      setTimeout(() => setSavedMessage(''), 3500);
+      return res;
+    }
+
+    setSavedPack(res.data || payload);
     setSavedMessage(res.fromLocal
       ? '✓ Family pack saved on your browser!'
       : '✓ Family pack successfully saved to your account!');
     setTimeout(() => setSavedMessage(''), 3500);
   };
 
-  const addPackToCart = async () => {
+  const loadSavedPack = () => {
+    if (!savedPack?.profile?.members?.length) return;
+
+    const savedItems = hydrateRecommendations(products, savedPack.recommendations || []);
+    setUserChangedMembers(false);
+    setMembers(savedPack.profile.members);
+    if (savedItems.length) {
+      setRecommendations(savedItems);
+    }
+    setSavedMessage('✓ Previous family pack loaded!');
+    setTimeout(() => setSavedMessage(''), 3000);
+  };
+
+  const addSavedPackToCart = async () => {
+    if (!currentUser) {
+      setSavedMessage('Please login or register to add your previous family pack.');
+      setTimeout(() => {
+        setSavedMessage('');
+        if (onLoginRequired) onLoginRequired();
+      }, 900);
+      return;
+    }
+
+    if (!savedPack?.recommendations?.length) return;
+
+    const savedMembers = savedPack.profile?.members?.length ? savedPack.profile.members : members;
+    const savedItems = hydrateRecommendations(products, savedPack.recommendations);
+    if (!savedItems.length) return;
+
+    const savedSummary = summarizeMembers(savedMembers);
+    const savedTotal = savedItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
     setAddingPack(true);
-    await savePack();
+    const res = await familyPacksApi.save({
+      profile: {
+        members: savedMembers,
+        adults: savedSummary.adult + savedSummary.senior,
+        children: savedSummary.child,
+      },
+      nutrient_summary: savedPack.nutrient_summary || nutrition,
+      recommendations: savedItems,
+      monthly_total: savedPack.monthly_total || savedTotal,
+    });
+    if (!res.success) {
+      setAddingPack(false);
+      setSavedMessage(res.message || 'Please login to add your previous family pack.');
+      setTimeout(() => setSavedMessage(''), 3500);
+      return;
+    }
+
+    setSavedPack(res.data || savedPack);
+    localStorage.setItem('prakruti_pending_order_type', 'family_pack');
+    for (const item of savedItems) {
+      await addToCart(item.product_id, item.qty, item.var_id || null);
+    }
+    setAddingPack(false);
+    flash('Previous family pack added to cart');
+    if (onGoToCart) onGoToCart();
+  };
+
+  const addPackToCart = async () => {
+    if (!currentUser) {
+      setSavedMessage('Please login or register to purchase your family pack.');
+      setTimeout(() => {
+        setSavedMessage('');
+        if (onLoginRequired) onLoginRequired();
+      }, 900);
+      return;
+    }
+
+    setAddingPack(true);
+    const saved = await savePack();
+    if (saved && saved.success === false) {
+      setAddingPack(false);
+      return;
+    }
     localStorage.setItem('prakruti_pending_order_type', 'family_pack');
     for (const item of recommendations) {
-      await addToCart(item.product_id, item.qty);
+      await addToCart(item.product_id, item.qty, item.var_id || null);
     }
     setAddingPack(false);
     flash('Family pack added to cart');
@@ -326,6 +452,47 @@ const FamilyPackPage = ({ onGoToCart }) => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container fp-section-container previous-pack-section">
+        <div className="saved-family-pack-card saved-family-pack-wide">
+          <div>
+            <span className="saved-family-pack-kicker">Your Previous Pack</span>
+            <h2>Previous Family Pack</h2>
+            <p>
+              {!currentUser
+                ? 'Login or register to see your saved family pack and add it directly to cart.'
+                : savedPack?.recommendations?.length
+                  ? 'Your saved family pack is ready. Load it for editing or add the same previous pack directly to cart.'
+                  : 'No previous family pack is saved yet. Build your pack once and it will appear here next time.'}
+            </p>
+          </div>
+          <div className="saved-family-pack-actions">
+            {!currentUser ? (
+              <button type="button" className="btn btn-primary-fp compact" onClick={onLoginRequired}>
+                Login / Register
+              </button>
+            ) : savedPack?.recommendations?.length ? (
+              <>
+                <button type="button" className="btn btn-outline-fp compact" onClick={loadSavedPack}>
+                  Load Previous Pack
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary-fp compact"
+                  onClick={addSavedPackToCart}
+                  disabled={addingPack}
+                >
+                  {addingPack ? 'Adding...' : 'Add Previous Pack'}
+                </button>
+              </>
+            ) : (
+              <button type="button" className="btn btn-outline-fp compact" onClick={savePack}>
+                Save Current Pack
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -499,6 +666,10 @@ const FamilyPackPage = ({ onGoToCart }) => {
                     <span className="item-category-tag">{item.label}</span>
                     <h3 className="item-title">{item.name}</h3>
                     <p className="item-benefit">{item.benefit}</p>
+                    <div className="item-pack-size">
+                      <span>Pack size</span>
+                      <strong>{formatPackSummary(item)}</strong>
+                    </div>
                   </div>
 
                   <div className="item-unit-price">

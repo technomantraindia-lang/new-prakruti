@@ -1,76 +1,177 @@
-.hero-banner-video {
+.hero-banner-carousel {
   position: relative;
   width: 100%;
-  height: 840px; /* Taller cinematic height on desktop */
+  aspect-ratio: 8 / 3;
+  min-height: 320px;
+  max-height: 720px;
   overflow: hidden;
-  background-color: #0d200f; /* Forest green fallback backdrop */
+  background-color: #0d200f;
 }
 
-.hero-video-element {
+.hero-banner-track {
+  display: flex;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---- Responsive Heights ---- */
+.hero-banner-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+
+button.hero-banner-slide {
+  cursor: pointer;
+}
+
+.hero-banner-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: clamp(38px, 4vw, 54px);
+  height: clamp(38px, 4vw, 54px);
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  color: #193a15;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 34px rgba(13, 32, 15, 0.2);
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.hero-carousel-arrow::before {
+  content: '';
+  display: block;
+  width: 11px;
+  height: 11px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+
+.hero-carousel-prev::before {
+  transform: rotate(-135deg);
+  margin-left: 4px;
+}
+
+.hero-carousel-next::before {
+  transform: rotate(45deg);
+  margin-left: -4px;
+}
+
+.hero-carousel-arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+  background: #fff;
+}
+
+.hero-carousel-prev {
+  left: clamp(12px, 2.4vw, 34px);
+}
+
+.hero-carousel-next {
+  right: clamp(12px, 2.4vw, 34px);
+}
+
+.hero-carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 2vw, 28px);
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+  transform: translateX(-50%);
+}
+
+.hero-carousel-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  transition: width 180ms ease, background 180ms ease;
+}
+
+.hero-carousel-dots button.active {
+  width: 30px;
+  background: #fff;
+}
+
 @media (min-width: 1600px) {
-  .hero-banner-video {
-    height: 880px;
+  .hero-banner-carousel {
+    max-height: 780px;
   }
 }
 
 @media (max-width: 1366px) {
-  .hero-banner-video {
-    height: 760px;
+  .hero-banner-carousel {
+    aspect-ratio: 16 / 6.4;
   }
 }
 
 @media (max-width: 1200px) {
-  .hero-banner-video {
-    height: 680px;
+  .hero-banner-carousel {
+    aspect-ratio: 16 / 6.7;
   }
 }
 
 @media (max-width: 1024px) {
-  .hero-banner-video {
-    height: 600px;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-banner-video {
-    height: 520px;
+  .hero-banner-carousel {
+    aspect-ratio: 16 / 7.2;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-banner-video {
-    height: 500px;
+  .hero-banner-carousel {
+    /* Match the uploaded banner artwork so mobile does not crop its text. */
+    aspect-ratio: 5 / 2;
+    min-height: 0;
+    max-height: none;
   }
-}
 
-@media (max-width: 640px) {
-  .hero-banner-video {
-    height: 440px;
+  .hero-banner-image {
+    object-fit: contain;
+    object-position: center;
+    background: #f3edd7;
+  }
+
+  .hero-carousel-arrow {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-banner-video {
-    height: 400px;
-  }
-}
-
-@media (max-width: 400px) {
-  .hero-banner-video {
-    height: 360px;
+  .hero-banner-carousel {
+    aspect-ratio: 5 / 2;
   }
 }
 
 @media (max-width: 360px) {
-  .hero-banner-video {
-    height: 320px;
+  .hero-banner-carousel {
+    aspect-ratio: 5 / 2;
   }
 }

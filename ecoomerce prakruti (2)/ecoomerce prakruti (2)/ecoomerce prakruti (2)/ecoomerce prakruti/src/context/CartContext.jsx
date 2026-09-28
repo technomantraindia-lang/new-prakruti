@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { cartApi } from '../api/cart';
-import { setCartSessionId } from '../api/client';
+import { getAuthToken, setCartSessionId } from '../api/client';
 import packgringImg from '../assets/images/new packing .png';
 
 const CartContext = createContext(null);
@@ -76,6 +76,12 @@ export function CartProvider({ children }) {
   }, []);
 
   const refreshCart = useCallback(async () => {
+    if (!getAuthToken()) {
+      apply({ items: [], subtotal: 0 });
+      setLoading(false);
+      return { success: true, data: { items: [] } };
+    }
+
     const res = await cartApi.getCart();
     if (res.success) apply(res.data);
     setLoading(false);
@@ -93,6 +99,11 @@ export function CartProvider({ children }) {
   }, [notice]);
 
   const addToCart = useCallback(async (productId, qty = 1, varId = null) => {
+    if (!getAuthToken()) {
+      flash('Please login or register to add products to cart.', 'error');
+      return { success: false, status: 401, requiresLogin: true };
+    }
+
     if (!productId) {
       flash('This product is not available from the store yet.', 'error');
       return { success: false };
@@ -109,6 +120,11 @@ export function CartProvider({ children }) {
   }, [apply, flash]);
 
   const updateQuantity = useCallback(async (cartItemId, qty) => {
+    if (!getAuthToken()) {
+      flash('Please login to update your cart.', 'error');
+      return { success: false, status: 401, requiresLogin: true };
+    }
+
     const nextQty = Math.max(1, qty);
     const res = await cartApi.updateCartItem(cartItemId, nextQty);
     if (res.success) {
@@ -121,6 +137,11 @@ export function CartProvider({ children }) {
   }, [apply, flash, refreshCart]);
 
   const removeItem = useCallback(async (cartItemId) => {
+    if (!getAuthToken()) {
+      flash('Please login to update your cart.', 'error');
+      return { success: false, status: 401, requiresLogin: true };
+    }
+
     const res = await cartApi.removeCartItem(cartItemId);
     if (res.success) {
       apply(res.data);
@@ -131,6 +152,11 @@ export function CartProvider({ children }) {
   }, [apply, flash]);
 
   const clearCart = useCallback(async () => {
+    if (!getAuthToken()) {
+      apply({ items: [], subtotal: 0 });
+      return { success: true, data: { items: [] } };
+    }
+
     const res = await cartApi.clearCart();
     if (res.success) {
       apply(res.data || { items: [], subtotal: 0 });

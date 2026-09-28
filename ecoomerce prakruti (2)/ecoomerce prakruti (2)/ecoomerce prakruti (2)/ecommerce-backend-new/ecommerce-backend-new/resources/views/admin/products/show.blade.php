@@ -67,7 +67,7 @@
 
         <div class="d-flex gap-2 flex-wrap mb-3">
             <span class="badge bg-{{ $product->status === 'active' ? 'success' : 'secondary' }}">{{ ucfirst($product->status) }}</span>
-            @if($product->featured)<span class="badge bg-warning text-dark">Featured</span>@endif
+            @if($product->featured)<span class="badge bg-warning text-dark">Best Seller</span>@endif
             <span class="badge bg-light text-dark">Category GST {{ number_format((float) ($product->subSubCategory?->gst_percentage ?? $product->subCategory?->gst_percentage ?? $product->category?->gst_percentage ?? 0), 2) }}%</span>
         </div>
 

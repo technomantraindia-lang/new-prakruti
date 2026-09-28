@@ -88,7 +88,7 @@ const ProductDetailPage = ({ productId, onBack, onNavigateProduct, onBuyNow }) =
       ? product.images
       : [product?.image || packgringImg];
 
-    return list.filter(Boolean).filter((value, index, self) => self.indexOf(value) === index);
+    return list.filter(Boolean).filter((value, index, self) => self.indexOf(value) === index).slice(0, 7);
   }, [product]);
 
   const [activeImage, setActiveImage] = useState(() => product?.images?.[0] || product?.image || packgringImg);
@@ -252,6 +252,9 @@ const ProductDetailPage = ({ productId, onBack, onNavigateProduct, onBuyNow }) =
             <div className="main-display-frame">
               <img src={activeImage} alt={product.name} className="active-showcase-img" />
               <span className="organic-badge-label">🌱 Pure &amp; Natural</span>
+              {productImages.length > 1 && (
+                <span className="gallery-count-label">{productImages.length} Photos</span>
+              )}
               <button className="expand-view-trigger" title="Expand View" aria-label="Expand image view">🔍</button>
             </div>
           </div>

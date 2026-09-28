@@ -47,7 +47,7 @@
 
 @if($featuredProducts->count())
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Featured Products</h3>
+    <h3>Best Sellers</h3>
     <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-sm">View All</a>
 </div>
 <div class="row">

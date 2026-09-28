@@ -102,6 +102,7 @@ export async function apiClient(endpoint, options = {}) {
       message: data.message || 'Success',
       data: data.data !== undefined ? data.data : data,
       pagination: data.pagination || null,
+      settings: data.settings || null,
     };
   } catch (error) {
     console.warn(`[API Client Network Error] ${endpoint}:`, error.message);

@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ConsultationRequestController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FarmGalleryCategoryController;
+use App\Http\Controllers\Admin\FarmGalleryController;
+use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
@@ -20,18 +24,23 @@ Route::bind('shipping', fn ($value) => ShippingMethod::findOrFail($value));
 Route::bind('customer', fn ($value) => User::findOrFail($value));
 Route::bind('user', fn ($value) => User::findOrFail($value));
 
+Route::get('/', fn () => redirect()->route('admin.login'))->name('index');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::get('/forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [LoginController::class, 'sendResetLink'])->name('password.email');
 
 Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('permission:dashboard.view')->name('dashboard');
     Route::get('/search', [\App\Http\Controllers\Admin\GlobalSearchController::class, 'search'])->name('search');
+    Route::get('/help', [HelpController::class, 'index'])->name('help');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Products & Variations
     Route::get('/products-bulk/create', [ProductController::class, 'bulkCreate'])->middleware('permission:products.bulk_manage')->name('products.bulkCreate');
     Route::post('/products-bulk/store', [ProductController::class, 'bulkStore'])->middleware('permission:products.bulk_manage')->name('products.bulkStore');
     Route::get('/products-import', [ProductController::class, 'importForm'])->middleware('permission:products.import')->name('products.import');
+    Route::get('/products-import/template', [ProductController::class, 'downloadImportTemplate'])->middleware('permission:products.import')->name('products.importTemplate');
     Route::post('/products-import', [ProductController::class, 'importStore'])->middleware('permission:products.import')->name('products.importStore');
     Route::patch('/products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->middleware('permission:products.edit')->name('products.toggleStatus');
     Route::patch('/products/{product}/toggle-featured', [ProductController::class, 'toggleFeatured'])->middleware('permission:products.edit')->name('products.toggleFeatured');
@@ -45,6 +54,18 @@ Route::middleware('admin')->group(function () {
 
     // Categories
     Route::resource('categories', CategoryController::class)->except(['show'])->middleware('permission:categories.view');
+
+    // Home Banners
+    Route::post('/banners/order', [BannerController::class, 'updateOrder'])->name('banners.updateOrder');
+    Route::resource('banners', BannerController::class)->except(['show']);
+
+    // Farm Gallery
+    Route::resource('farm-gallery-categories', FarmGalleryCategoryController::class)
+        ->except(['show'])
+        ->parameters(['farm-gallery-categories' => 'farmGalleryCategory']);
+    Route::resource('farm-gallery', FarmGalleryController::class)
+        ->except(['show'])
+        ->parameters(['farm-gallery' => 'farmGallery']);
 
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->middleware('permission:orders.view')->name('orders.index');

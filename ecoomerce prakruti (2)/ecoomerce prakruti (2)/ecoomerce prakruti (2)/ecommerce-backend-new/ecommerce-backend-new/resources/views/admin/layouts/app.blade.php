@@ -1,9 +1,42 @@
 @php
+    $adminSeenKey = fn (string $section) => 'admin_menu_seen_' . $section . '_' . (auth()->id() ?? 'guest');
+    $safeSeenAt = function (string $section) use ($adminSeenKey) {
+        $key = $adminSeenKey($section);
+        $value = \Illuminate\Support\Facades\Cache::get($key);
+
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format('Y-m-d H:i:s');
+        }
+
+        if (is_string($value) && strtotime($value) !== false) {
+            return $value;
+        }
+
+        if ($value !== null) {
+            \Illuminate\Support\Facades\Cache::forget($key);
+        }
+
+        return null;
+    };
+    $lastSeenOrdersAt = $safeSeenAt('orders');
+    $lastSeenInquiriesAt = $safeSeenAt('inquiries');
+    $lastSeenReviewsAt = $safeSeenAt('reviews');
     $lowStockCount = \App\Models\Product::whereColumn('stock_qty', '<=', 'low_stock_qty')->count();
     $pendingOrdersCount = \App\Models\Order::where('status', 'pending')->count();
     $pendingInquiriesCount = \App\Models\Inquiry::where('status', 'pending')->count();
     $newConsultationsCount = \Illuminate\Support\Facades\Schema::hasTable('consultation_requests') ? \App\Models\ConsultationRequest::where('status', 'new')->count() : 0;
     $pendingReviewsCount = \Illuminate\Support\Facades\Schema::hasTable('product_reviews') ? \App\Models\ProductReview::where('status', 'pending')->count() : 0;
+    $newOrdersMenuCount = \App\Models\Order::where('status', 'pending')
+        ->when($lastSeenOrdersAt, fn ($query) => $query->where('created_at', '>', $lastSeenOrdersAt))
+        ->count();
+    $newInquiriesMenuCount = \App\Models\Inquiry::where('status', 'pending')
+        ->when($lastSeenInquiriesAt, fn ($query) => $query->where('created_at', '>', $lastSeenInquiriesAt))
+        ->count();
+    $newReviewsMenuCount = \Illuminate\Support\Facades\Schema::hasTable('product_reviews')
+        ? \App\Models\ProductReview::where('status', 'pending')
+            ->when($lastSeenReviewsAt, fn ($query) => $query->where('created_at', '>', $lastSeenReviewsAt))
+            ->count()
+        : 0;
     $totalNotifications = $lowStockCount + $pendingOrdersCount + $pendingInquiriesCount + $newConsultationsCount + $pendingReviewsCount;
 @endphp
 <!DOCTYPE html>
@@ -22,9 +55,11 @@
         body { background: #faf8f3; font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; overflow-x: hidden; }
         .sidebar { background: var(--sidebar-bg); min-height: 100vh; padding: 20px; transition: background 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.05); }
         .sidebar h5 { color: white; margin-bottom: 25px; font-weight: 700; letter-spacing: 0.5px; }
-        .sidebar a { color: rgba(255,255,255,0.85); text-decoration: none; display: block; padding: 10px 15px; border-radius: 6px; transition: all 0.2s ease; margin-bottom: 5px; }
+        .sidebar a { color: rgba(255,255,255,0.85); text-decoration: none; display: flex; align-items: center; justify-content: flex-start; gap: 8px; padding: 10px 15px; border-radius: 6px; transition: all 0.2s ease; margin-bottom: 5px; }
         .sidebar a:hover { background: rgba(255,255,255,0.15); color: white; transform: translateX(3px); }
         .sidebar a.active { background: rgba(255,255,255,0.25); color: white; font-weight: 600; }
+        .sidebar-link-label { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+        .menu-new-badge { margin-left: auto; min-width: 22px; height: 22px; padding: 0 7px; border-radius: 999px; background: #dc2626; color: #fff; font-size: 0.72rem; font-weight: 900; line-height: 22px; text-align: center; box-shadow: 0 0 0 2px rgba(255,255,255,0.22); }
         .navbar { border-bottom: 1px solid #e3ddcf; }
         .text-gradient { background: linear-gradient(135deg, #2d5a27 0%, #528b4b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .card { border: 1px solid #e3ddcf; box-shadow: 0 4px 6px rgba(45,90,39,0.03), 0 1px 3px rgba(45,90,39,0.05); border-radius: 10px; transition: transform 0.2s ease; }
@@ -77,12 +112,25 @@
                 </a>
                 <a href="{{ route('admin.products.index') }}" class="@if(request()->routeIs('admin.products.*')) active @endif"><i class="fas fa-boxes"></i> Products</a>
                 <a href="{{ route('admin.categories.index') }}" class="@if(request()->routeIs('admin.categories.*')) active @endif"><i class="fas fa-sitemap"></i> Categories</a>
-                <a href="{{ route('admin.orders.index') }}" class="@if(request()->routeIs('admin.orders.*')) active @endif"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="{{ route('admin.banners.index') }}" class="@if(request()->routeIs('admin.banners.*')) active @endif"><i class="fas fa-images"></i> Home Banners</a>
+                <a href="{{ route('admin.orders.index') }}" class="@if(request()->routeIs('admin.orders.*')) active @endif">
+                    <span class="sidebar-link-label"><i class="fas fa-shopping-cart"></i> Orders</span>
+                    @if($newOrdersMenuCount > 0)<span class="menu-new-badge" title="{{ $newOrdersMenuCount }} new order(s)">{{ $newOrdersMenuCount }}</span>@endif
+                </a>
+                <a href="{{ route('admin.farm-gallery.index') }}" class="@if(request()->routeIs('admin.farm-gallery.*')) active @endif"><i class="fas fa-seedling"></i> Farm Gallery</a>
+                <a href="{{ route('admin.farm-gallery-categories.index') }}" class="@if(request()->routeIs('admin.farm-gallery-categories.*')) active @endif"><i class="fas fa-tags"></i> Farm Categories</a>
                 <a href="{{ route('admin.customers.index') }}" class="@if(request()->routeIs('admin.customers.*')) active @endif"><i class="fas fa-users"></i> Customers</a>
-                <a href="{{ route('admin.inquiries.index') }}" class="@if(request()->routeIs('admin.inquiries.*')) active @endif"><i class="fas fa-comments"></i> Inquiries</a>
+                <a href="{{ route('admin.inquiries.index') }}" class="@if(request()->routeIs('admin.inquiries.*')) active @endif">
+                    <span class="sidebar-link-label"><i class="fas fa-comments"></i> Inquiries</span>
+                    @if($newInquiriesMenuCount > 0)<span class="menu-new-badge" title="{{ $newInquiriesMenuCount }} new inquiry(s)">{{ $newInquiriesMenuCount }}</span>@endif
+                </a>
                 <a href="{{ route('admin.consultations.index') }}" class="@if(request()->routeIs('admin.consultations.*')) active @endif"><i class="fas fa-user-md"></i> Consultations</a>
-                <a href="{{ route('admin.reviews.index') }}" class="@if(request()->routeIs('admin.reviews.*')) active @endif"><i class="fas fa-star"></i> Reviews</a>
+                <a href="{{ route('admin.reviews.index') }}" class="@if(request()->routeIs('admin.reviews.*')) active @endif">
+                    <span class="sidebar-link-label"><i class="fas fa-star"></i> Reviews</span>
+                    @if($newReviewsMenuCount > 0)<span class="menu-new-badge" title="{{ $newReviewsMenuCount }} new review(s)">{{ $newReviewsMenuCount }}</span>@endif
+                </a>
                 <a href="{{ route('admin.settings.index') }}" class="@if(request()->routeIs('admin.settings.*')) active @endif"><i class="fas fa-cog"></i> Settings</a>
+                <a href="{{ route('admin.help') }}" class="@if(request()->routeIs('admin.help')) active @endif"><i class="fas fa-circle-question"></i> Help &amp; Guide</a>
                 <hr style="border-color: rgba(255,255,255,0.3); margin: 20px 0;">
                 <a href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -114,6 +162,10 @@
                                     <li><a class="dropdown-item" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog me-2 text-secondary"></i> System Settings</a></li>
                                 </ul>
                             </div>
+
+                            <a href="{{ route('admin.help') }}" class="btn btn-sm btn-outline-success" title="Open Admin Help">
+                                <i class="fas fa-circle-question"></i><span class="d-none d-lg-inline ms-1">Help</span>
+                            </a>
 
                             <div class="dropdown">
                                 <button class="btn btn-link text-dark position-relative p-1" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
@@ -263,6 +315,7 @@
         </div>
     </div>
 
+    @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Responsive admin navigation

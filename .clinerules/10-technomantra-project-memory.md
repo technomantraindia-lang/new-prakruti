@@ -5,8 +5,8 @@
 - Workspace: ecoomerce prakruti (3)
 - Technology: Not yet detected
 - Active file at refresh: None
-- Local code graph: 138 files · 107 edges · 0 matched flows
-- Refreshed: 2026-09-22T11:18:59.115Z
+- Local code graph: 145 files · 106 edges · 0 matched flows
+- Refreshed: 2026-09-28T06:22:29.023Z
 
 
 
@@ -40,6 +40,7 @@
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/create.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/edit.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/attributes/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/auth/forgot-password.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/auth/login.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/brands/create.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/brands/edit.blade.php
@@ -53,6 +54,14 @@
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/customers/index.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/customers/show.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/dashboard/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery-categories/_form.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery-categories/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery-categories/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery-categories/index.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery/_form.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery/create.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery/edit.blade.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/farm-gallery/index.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inquiries/index.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inquiries/show.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/admin/inventory/index.blade.php
@@ -85,6 +94,8 @@
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/account.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/auth/login.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/auth/register.blade.php
+
+## Additional indexed files
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/cart/index.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/categories/show.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/home.blade.php
@@ -94,17 +105,24 @@
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/frontend/products/show.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/resources/views/welcome.blade.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/admin.php
-
-## Additional indexed files
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/api.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/console.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/routes/web.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/app/route-list.json
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/2834152ec3ca01167e467f3c1b8bb9a8.php
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/5f1204aa0187b266ba015009585ec66d.php
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/7e800d611d510780918de51ef238bff1.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/053dd942e931d5e27cc235a62935dd30.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/06fb9b4d899717160b810af57d736672.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/49d70f5da8824dc2b0a57e86ca084a86.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/585d9d71b5b577ccc00500657cfe9527.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/7751fd47f7756356ebc81c4da32c2e80.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/7db19c2f45786c7fcfae31fba485c54a.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/97b38ce633e462ec795680d9a2c651e5.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/9967f6c76f0c1c8367e5e8e1d7ac81cb.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/acde63c60dbf457f985bc89335cada48.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/b11ceaa2fc30088b16327ef893da2942.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/b652abdcbd0f7bad04e2332969de6cbc.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/d6f3075f4d33b11c8a42f27863c9f317.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/e6f61d47b8584880990b3d17b1d987e3.php
+- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/storage/framework/views/efec34d07bff9876211094c8edc557e6.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecommerce-backend-new/ecommerce-backend-new/tests/Feature/WebhookRouteTest.php
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/api/reviews.js
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/AboutPage/AboutPage.css
@@ -140,29 +158,4 @@
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.css
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Footer/Footer.jsx
 - ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/HeroBanner/HeroBanner.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/InstagramFeed/InstagramFeed.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LegalPage/LegalPage.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/LoadingScreen/LoadingScreen.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Navbar/Navbar.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PrakrutiPromise/PrakrutiPromise.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ProductDetailPage/ProductDetailPage.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/PromoBanner/PromoBanner.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/ShopByCategory/ShopByCategory.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/Testimonials/Testimonials.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.css
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/src/components/WellnessStaples/WellnessStaples.jsx
-- ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti (2)/ecoomerce prakruti/vite.config.mjs
-- .clinerules/05-technomantra-execution-mode.md
-- .clinerules/06-technomantra-developer-mode.md
-- .clinerules/08-technomantra-task-watchdog.md
-- .clinerules/09-technomantra-m
+- ecoom

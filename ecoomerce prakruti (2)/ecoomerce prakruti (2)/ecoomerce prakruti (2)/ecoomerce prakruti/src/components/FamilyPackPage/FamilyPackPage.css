@@ -141,6 +141,65 @@
   margin-bottom: 20px;
 }
 
+.saved-family-pack-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 680px;
+  margin: 0 0 24px;
+  padding: 16px 18px;
+  border: 1px solid rgba(202, 138, 4, 0.25);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+  box-shadow: 0 8px 22px rgba(120, 84, 25, 0.08);
+}
+
+.saved-family-pack-wide {
+  max-width: 100%;
+  margin-bottom: 0;
+  padding: 24px 28px;
+}
+
+.saved-family-pack-card h2 {
+  margin: 0 0 6px;
+  color: #173826;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.saved-family-pack-kicker {
+  display: block;
+  margin-bottom: 4px;
+  color: #92400e;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.saved-family-pack-card p {
+  margin: 0;
+  color: #445748;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.saved-family-pack-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.btn-primary-fp.compact,
+.btn-outline-fp.compact {
+  padding: 9px 16px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
 .family-pack-stats-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -661,6 +720,33 @@
   text-overflow: ellipsis;
 }
 
+.item-pack-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #eef7ea;
+  color: #173826;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+.item-pack-size span {
+  color: #617b66;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.item-pack-size strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .item-unit-price,
 .item-subtotal {
   display: flex;
@@ -974,6 +1060,16 @@
   .fp-card-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .saved-family-pack-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .saved-family-pack-actions,
+  .saved-family-pack-actions button {
+    width: 100%;
   }
 
   .basket-item-row {

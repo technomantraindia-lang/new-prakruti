@@ -62,6 +62,11 @@ const AccountPage = ({ currentUser, onLoginClick, onShopClick, onFamilyPackClick
   }
 
   const displayUser = profile || currentUser || {};
+  const totalSpent = orders.reduce((sum, order) => sum + Number(order.total || 0), 0);
+  const familyPackOrders = orders.filter((order) => order.order_type === 'family_pack').length;
+  const memberSince = displayUser.created_at
+    ? new Date(displayUser.created_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })
+    : 'New customer';
   const initials = String(displayUser.name || 'Customer')
     .split(' ')
     .map((part) => part.charAt(0))
@@ -76,14 +81,33 @@ const AccountPage = ({ currentUser, onLoginClick, onShopClick, onFamilyPackClick
 
         <section className="account-hero-card">
           <div className="account-avatar">{initials || 'CU'}</div>
-          <div>
+          <div className="account-hero-copy">
             <p className="account-kicker">Customer Account</p>
             <h1>{displayUser.name || 'My Account'}</h1>
             <p>{displayUser.email || 'Manage your Prakruti profile and purchases.'}</p>
           </div>
+          <div className="account-hero-badge">
+            <span>{displayUser.status || 'Active'}</span>
+            <small>Member since {memberSince}</small>
+          </div>
         </section>
 
         {message && <div className="account-alert">{message}</div>}
+
+        <section className="account-stats-grid">
+          <div className="account-stat-card">
+            <span>Total Orders</span>
+            <strong>{orders.length}</strong>
+          </div>
+          <div className="account-stat-card">
+            <span>Family Packs</span>
+            <strong>{familyPackOrders}</strong>
+          </div>
+          <div className="account-stat-card">
+            <span>Total Spend</span>
+            <strong>₹{totalSpent.toFixed(0)}</strong>
+          </div>
+        </section>
 
         <div className="account-grid">
           <section className="account-card">
@@ -118,8 +142,14 @@ const AccountPage = ({ currentUser, onLoginClick, onShopClick, onFamilyPackClick
             </div>
 
             <div className="account-actions">
-              <button type="button" onClick={onShopClick}>Shop Products</button>
-              <button type="button" onClick={onFamilyPackClick}>Open Family Pack</button>
+              <button type="button" onClick={onShopClick}>
+                <span>Shop Products</span>
+                <small>Browse organic staples</small>
+              </button>
+              <button type="button" onClick={onFamilyPackClick}>
+                <span>Open Family Pack</span>
+                <small>Reorder your saved pack</small>
+              </button>
             </div>
           </section>
         </div>

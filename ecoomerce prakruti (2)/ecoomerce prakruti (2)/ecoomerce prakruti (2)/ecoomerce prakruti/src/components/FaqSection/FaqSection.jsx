@@ -64,7 +64,7 @@ const FaqSection = () => {
               <div className="contact-card-content">
                 <h4 className="contact-card-heading">Still need help?</h4>
                 <p className="contact-card-sub">Email our wellness support team at</p>
-                <a href="mailto:hello@prakruti.com" className="contact-card-email">hello@prakruti.com</a>
+                <a href="mailto:info@prakrutiorganic.com" className="contact-card-email">info@prakrutiorganic.com</a>
               </div>
             </div>
           </div>

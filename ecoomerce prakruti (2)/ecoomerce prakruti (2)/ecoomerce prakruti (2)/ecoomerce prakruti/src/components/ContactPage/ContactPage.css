@@ -154,6 +154,10 @@
   margin-bottom: 20px;
 }
 
+.input-row-split.single-field-row {
+  grid-template-columns: 1fr;
+}
+
 .input-wrap {
   position: relative;
   width: 100%;
@@ -357,7 +361,7 @@
   border-color: var(--color-primary);
 }
 
-.info-item-icon.green-whatsapp {
+.info-item-icon.green-support {
   background-color: #e8f7e7;
   border-color: #d0efcf;
 }
